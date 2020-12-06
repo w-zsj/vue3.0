@@ -1,23 +1,25 @@
 import axios from 'axios'
+// import Bus from './bus'
+const version = process.env.VUE_APP_VERSION
 
-// 创建axios
-const service = axios.create({
+// 请求实例
+const http = axios.create({
     baseURL: process.env.VUE_APP_DOMAIN,
     timeout: 8000
-});
-
+})
+// const close = () => {
+//   Bus.$emit('Loading', false)
+// }
 // 请求拦截器
-service.interceptors.request.use(config => {
-
-    config.headers = { ...config.headers, 'Content-Type': 'application/json', Authorization: '', os: 'h5', deviceid: 'h5' }
-    // console.log('->request config', conf)
-    return config
+http.interceptors.request.use(conf => {
+    //   Bus.$emit('Loading', true)
+    conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '', os: 'h5', deviceid: 'h5', version }
+    return conf
 }, err => {
     console.log('--->request error', err)
-
+    //   close()
     return Promise.reject(err)
 })
-
 
 /**
  * 响应结果异常处理
@@ -35,12 +37,13 @@ const responseReject = e => {
         res.msg = res.code === 10721 ? (data.msg + (data.data ? (',' + data.data) : '')) : (data.msg || data.message || statusText || JSON.stringify(e))
     }
 
+    //   close()
     return Promise.reject(res)
 }
-// 响应结果拦截器
-service.interceptors.response.use(res => {
-    // console.log('-->response', res)
 
+// 响应结果拦截器
+http.interceptors.response.use(res => {
+    console.log('-->response', res)
     if (res.status === 200) {
         if (res.data && res.data.code === 1511200) {
             let data = res.data.data
@@ -74,7 +77,7 @@ const GET = (url, params = {}) => {
     let config = { params }
     let { realUrl, baseURL } = dealUrl(url)
     if (baseURL) config.baseURL = baseURL
-    return service.get(realUrl, config)
+    return http.get(realUrl, config)
 }
 
 /**
@@ -86,7 +89,7 @@ const POST = (url, params = {}) => {
     let config = {}
     let { realUrl, baseURL } = dealUrl(url)
     if (baseURL) config.baseURL = baseURL
-    return service(realUrl, params, config)
+    return http.post(realUrl, params, config)
 }
 
 export {

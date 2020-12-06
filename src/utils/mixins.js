@@ -2,7 +2,6 @@
 import CallApp from '@/utils/callapp'
 import dealParams from './dealAppParams'
 import { WxShare } from './apis/wechat'
-
 var shareInterval
 
 /**
@@ -10,22 +9,15 @@ var shareInterval
  */
 const Mixin = {
     methods: {
-        toast(){
-            console.log('toast----')
-        },
         /**
          * 
-         * @param {*} iscall //
          * @param {*} hint // 蒙层
          * @param {*} customParams  // 自定义参数
          */
-        callApp(iscall, hint = true, customParams = {}) {
-            let { params, name, query } = this.$route
-            let payload = this.$root.callPayload || {}
-            customParams = { ...params, ...query, name, ...customParams, }
+        callApp(customParams = {}, hint = true,) {
             let callparam = dealParams(customParams)
-            console.log('mixin callApp: ', payload, callparam)
-            CallApp(!iscall, callparam, hint, document.getElementById('goAppHint'))
+            console.log('mixin callApp: ', callparam)
+            CallApp(callparam, hint, document.getElementById('goAppHint'))
         },
         /**
          * 设置微信分享

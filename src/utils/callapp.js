@@ -48,7 +48,7 @@ var settedClick = false
  * @param {Boolean} hint 是否必须显示蒙层提示
  * @param {Element} $hint 提示使用浏览器打开的DOM元素
  */
-function CallApp(istry, callparam, hint, $hint) {
+function CallApp(callparam, hint = true, $hint) {
     let url = schemeUrl // + redirectLink
     if (callparam && !isNaN(callparam.pagetype)) {
         url = url + redirectLink + JSON.stringify(callparam)
@@ -67,7 +67,7 @@ function CallApp(istry, callparam, hint, $hint) {
         if (ENV.mobile && inHint && hint) {
             $hint.style.display = 'block'
         }
-        if (!inHint && !istry) {
+        if (!inHint) {
             skipLoadTimer = setTimeout(() => {
                 // ENV.ios ? window.open(appStore, '_new') : window.location.href = loadUrl
                 window.location.href = ENV.ios ? appStore : loadUrl

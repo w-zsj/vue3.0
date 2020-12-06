@@ -6,6 +6,8 @@ import App from './App.vue'
 import router from "./router"
 import store from "./store"
 
+import ico from './components/base/ico'
+
 const app = createApp({
     data() {
         return {}
@@ -26,6 +28,8 @@ const app = createApp({
         this.ipx = (dw === 375 && dh === 812) || (dw === 414 && dh === 896)
     }
 })
+app.component('ico', ico)
+
 app.mixin(Mixins)
     .use(router)
     .use(store)

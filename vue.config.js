@@ -29,16 +29,16 @@ module.exports = {
         loaderOptions: {
             sass: {
                 data: `$baseUrl: "${baseUrl}";
-        @import '~@/assets/css/vars.scss';
-        @import '~@/assets/css/mixins.scss';
-        @import "~@/assets/css/sprite";`
+                @import '~@/assets/css/vars.scss';
+                @import '~@/assets/css/mixins.scss';
+                @import "~@/assets/css/sprite.scss";`
             }
         },
         // 启用 CSS modules for all css / pre-processor files.
         requireModuleExtension: false
     },
     devServer: {// 环境配置
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 15011,
         https: false,
         hotOnly: false,
@@ -78,7 +78,7 @@ module.exports = {
             config.plugin('html').use(require('html-webpack-plugin'), [
                 {
                     title: 'sneakerBurger',
-                    url: './public/favicon.ico',
+                    url: path.resolve(__dirname, 'public/favicon.ico'),
                     filename: 'index.html',
                     template: path.resolve(__dirname, 'public/index.html'),
                     cdnInject: `
@@ -90,8 +90,7 @@ module.exports = {
         config.externals({
             vue: 'Vue',
             'vue-router': 'VueRouter',
-            'nutui': 'nutui',
-            BMap: 'BMap'
+            'nutui': 'nutui'
         })
 
         // 雪碧图
@@ -132,6 +131,7 @@ module.exports = {
         // 路径别名
         config.resolve.alias
             .set('comps', path.resolve(__dirname, 'src/components'))
+            .set('api', path.resolve(__dirname, 'src/utils/apis'))
             .set('@', path.resolve(__dirname, 'src'))
     },
 };

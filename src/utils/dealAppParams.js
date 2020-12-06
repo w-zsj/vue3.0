@@ -1,6 +1,6 @@
 import { AppPageType } from './enum'
 export default function dealParams(customParams) {
-    let callparam = null
+    let callparam = {}
     switch (customParams.name) {
         case 'postingDetail':
             callparam = {
@@ -17,8 +17,8 @@ export default function dealParams(customParams) {
         case 'shipmentDetail': // 求、出货详情
             callparam = {
                 pagetype: AppPageType.shipmentDetail,
-                id: customParams.sku,
-                index: customParams.type
+                id: customParams.id,
+                index: customParams.index
             }
             break
     }

@@ -1,16 +1,30 @@
 <template>
-  <div>{{ title }}</div>
+  <div class="tit">
+    {{ title }}
+  </div>
 </template>
 <script>
 import { getCurrentInstance, ref, onMounted } from "vue";
 export default {
   name: "home",
   setup() {
+    const instance = getCurrentInstance();
+    const { ctx } = instance;
     let title = ref("首页");
-    onMounted(() => {
-      const instance = getCurrentInstance();
-    });
-    return { title };
+    let btn = () => {
+      console.log("当前实例", instance);
+    };
+    onMounted(() => {});
+    return { title, btn };
   },
 };
 </script>
+<style scoped lang="scss">
+.tit {
+  font-size: 16 * $px;
+  width: 50 * $px;
+  height: 50 * $px;
+  background: yellowgreen;
+  color: #fff;
+}
+</style>
