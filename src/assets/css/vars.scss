@@ -1,0 +1,28 @@
+// 变量表
+// $baseUrl:""; //应用的基本url, 已通过loader注入
+// 尺寸
+$px: .02rem;
+// 颜色
+$color-23:#232323;
+$color-64:#646464;
+$color-3: #333;
+$color-6: #666;
+$color-9: #999;
+$color-96:#969696;
+$color-e7: #e7e7e7;
+$color-ylo: #ffc700;
+$color-light-bg: #f7fafd;
+$color-blue-bg: #e5f4ff;
+$color-blue-ft: #46a4cf;
+$color-blue-ft-deep: #0096ff;
+$color-purple:#707AFC;
+$color-orange:#FF6828;
+$color-red:#FA2337;
+$color-green:#0AB978;
+$color-block:#000;
+$color-white:#fff;
+$color-c8:#c8c8c8;
+// 渐变
+$gradient-bg: linear-gradient(153deg, #ffb200 0%, $color-ylo 100%);
+$gradient-btn: linear-gradient(153deg, #ffe500 0%, $color-ylo 100%);
+$gradient-btun: linear-gradient(153deg, #60AFFF 0%, #8050FF 100%);

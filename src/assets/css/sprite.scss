@@ -1,0 +1,174 @@
+@function parse-random($value) {
+  @return round(random() * $value);
+}
+$randomId: parse-random(1000000);
+
+$spriteSrc: "~@/assets/img/sprite.png";
+$spriteWidth: 336px;
+$spriteHeight: 1962px;
+$icon-vip: 0px 0px 24px 28px;
+$label-topic: 0px -38px 39px 36px;
+$more-black: 0px -84px 36px 36px;
+$more-right: 0px -130px 36px 36px;
+$right-arrow: 0px -176px 36px 36px;
+$gps-icon: 0px -222px 48px 48px;
+$posting-like-16: 0px -280px 48px 48px;
+$posting-like-gray-16: 0px -338px 48px 48px;
+$sales-location: 0px -396px 48px 48px;
+$vip-small: 0px -454px 48px 48px;
+$dot: 0px -512px 66px 66px;
+$posting-like-gray-small: 0px -588px 66px 66px;
+$posting-like-small: 0px -664px 66px 66px;
+$ranking-white-shadow: 0px -740px 66px 66px;
+$collection-icon: 0px -816px 78px 78px;
+$collection: 0px -904px 78px 78px;
+$news: 0px -992px 78px 78px;
+$posting-like-22: 0px -1080px 78px 78px;
+$posting-like-gray-22: 0px -1168px 78px 78px;
+$posting-like-gray: 0px -1256px 78px 78px;
+$posting-like: 0px -1344px 78px 78px;
+$posting-share: 0px -1432px 78px 78px;
+$image-top: 0px -1520px 99px 96px;
+$image-head: 0px -1626px 336px 336px;
+
+@function px2rem ($px) {
+  @if (type-of($px) == "number") {
+    @return $px / 75px * 1rem;
+  }
+  @if (type-of($px) == "list") {
+    @if (nth($px, 1) == 0 and nth($px, 2) != 0) {
+      @return 0 nth($px, 2) / 75px * 1rem;
+    } @else if (nth($px, 1) == 0 and nth($px, 2) == 0)  {
+      @return 0 0;
+    } @else if (nth($px, 1) != 0 and nth($px, 2) == 0) {
+      @return nth($px, 1) / 75px * 1rem 0;
+    } @else {
+      @return nth($px, 1) / 75px *1rem nth($px, 2) / 75px * 1rem;
+    }
+  }
+}
+
+@function strip-units($number){
+  @return $number / ($number * 0 + 1);
+}
+
+@function format-zero($number){
+    @if $number == 0 {
+        @return 1;
+    }@else{
+        @return $number;
+    }
+}
+
+@mixin sprite-width($sprite, $precision) {
+    @if $precision {
+        width: px2rem(nth($sprite, 3));
+    }@else{
+        width: px2rem(nth($sprite, 3) + 2px);
+    }
+
+}
+
+@mixin sprite-height($sprite, $precision) {
+    @if $precision {
+        height: px2rem(nth($sprite, 4));
+    }@else{
+        height: px2rem(nth($sprite, 4) + 2px);
+    }
+}
+
+@mixin sprite-position($sprite, $precision) {
+    @if $precision {
+        background-position: strip-units(nth($sprite, 1)) / strip-units(nth($sprite, 3) + 0.5 - $spriteWidth) * 100%  strip-units(nth($sprite, 2)) / format-zero(strip-units(nth($sprite, 4) + 0.5 - $spriteHeight)) * 100%;
+    }@else{
+        background-position: strip-units(nth($sprite, 1)) / strip-units(nth($sprite, 3) + 1 - $spriteWidth) * 100%  strip-units(nth($sprite, 2)) / format-zero(strip-units(nth($sprite, 4) + 1 - $spriteHeight)) * 100%;
+    }
+}
+
+.i {
+  background-image: url('#{$spriteSrc}');
+    background-repeat: no-repeat;
+    background-size: px2rem(($spriteWidth, $spriteHeight));
+  display: inline-block;
+}
+
+@mixin sprite($sprite, $precision) {
+    @include sprite-position($sprite, $precision);
+    @include sprite-width($sprite, $precision);
+    @include sprite-height($sprite, $precision);
+    @extend .i;
+}
+
+
+@mixin mix-icon-vip() {
+    @include sprite($icon-vip, $precision: true);
+}
+@mixin mix-label-topic() {
+    @include sprite($label-topic, $precision: true);
+}
+@mixin mix-more-black() {
+    @include sprite($more-black, $precision: true);
+}
+@mixin mix-more-right() {
+    @include sprite($more-right, $precision: true);
+}
+@mixin mix-right-arrow() {
+    @include sprite($right-arrow, $precision: true);
+}
+@mixin mix-gps-icon() {
+    @include sprite($gps-icon, $precision: true);
+}
+@mixin mix-posting-like-16() {
+    @include sprite($posting-like-16, $precision: true);
+}
+@mixin mix-posting-like-gray-16() {
+    @include sprite($posting-like-gray-16, $precision: true);
+}
+@mixin mix-sales-location() {
+    @include sprite($sales-location, $precision: true);
+}
+@mixin mix-vip-small() {
+    @include sprite($vip-small, $precision: true);
+}
+@mixin mix-dot() {
+    @include sprite($dot, $precision: true);
+}
+@mixin mix-posting-like-gray-small() {
+    @include sprite($posting-like-gray-small, $precision: true);
+}
+@mixin mix-posting-like-small() {
+    @include sprite($posting-like-small, $precision: true);
+}
+@mixin mix-ranking-white-shadow() {
+    @include sprite($ranking-white-shadow, $precision: true);
+}
+@mixin mix-collection-icon() {
+    @include sprite($collection-icon, $precision: true);
+}
+@mixin mix-collection() {
+    @include sprite($collection, $precision: true);
+}
+@mixin mix-news() {
+    @include sprite($news, $precision: true);
+}
+@mixin mix-posting-like-22() {
+    @include sprite($posting-like-22, $precision: true);
+}
+@mixin mix-posting-like-gray-22() {
+    @include sprite($posting-like-gray-22, $precision: true);
+}
+@mixin mix-posting-like-gray() {
+    @include sprite($posting-like-gray, $precision: true);
+}
+@mixin mix-posting-like() {
+    @include sprite($posting-like, $precision: true);
+}
+@mixin mix-posting-share() {
+    @include sprite($posting-share, $precision: true);
+}
+@mixin mix-image-top() {
+    @include sprite($image-top, $precision: true);
+}
+@mixin mix-image-head() {
+    @include sprite($image-head, $precision: true);
+}
