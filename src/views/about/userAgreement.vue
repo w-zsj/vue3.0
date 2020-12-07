@@ -262,6 +262,11 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: "useragreement",
+};
+</script>
 <style scoped lang="scss">
 .privacy {
   padding: 15px;

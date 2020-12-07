@@ -83,6 +83,7 @@
 import { getCurrentInstance, ref, reactive, onMounted } from "vue";
 import { buyGoods } from "api/goods";
 export default {
+  name:"goods",
   setup() {
     const { ctx } = getCurrentInstance(),
       {
