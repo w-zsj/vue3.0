@@ -19,7 +19,7 @@ module.exports = {
         // subpage: 'src/subpage/main.js'//官方解释：当使用只有入口的字符串格式时,模板会被推导为'public/subpage.html',若找不到就回退到'public/index.html',输出文件名会被推导为'subpage.html'
     },
     lintOnSave: false,// 是否在保存的时候检查
-    productionSourceMap: true,// 生产环境是否生成 sourceMap 文件
+    productionSourceMap: false,// 生产环境是否生成 sourceMap 文件
     // css相关配置
     css: {
         // 是否使用css分离插件 ExtractTextPlugin
@@ -68,8 +68,8 @@ module.exports = {
 
         config.plugin('extract-css').use(require('mini-css-extract-plugin'), [
             {
-                filename: assetsDir + '/css/[name].[contenthash:3].css',
-                chunkFilename: assetsDir + '/css/[name].[contenthash:3].css'
+                filename: assetsDir + '/css/[name].css',
+                chunkFilename: assetsDir + '/css/[name].css'
             }
         ])
 

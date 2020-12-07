@@ -1,5 +1,5 @@
 <template>
-  <div class="tit">
+  <div class="tit" @click="toHome">
     {{ title }}
   </div>
 </template>
@@ -9,13 +9,17 @@ export default {
   name: "home",
   setup() {
     const instance = getCurrentInstance();
-    const { ctx } = instance;
+    const {
+      ctx,
+      ctx: { $router },
+    } = instance;
     let title = ref("首页");
-    let btn = () => {
+    let toHome = () => {
       console.log("当前实例", instance);
+      $router.push("/about/privacy");
     };
     onMounted(() => {});
-    return { title, btn };
+    return { title, toHome };
   },
 };
 </script>
