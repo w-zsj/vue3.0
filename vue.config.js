@@ -1,4 +1,5 @@
 const path = require('path')
+const updeta = require('./build/upload')
 const isProd = process.env.NODE_ENV === 'production'
 const assetsDir = 'static'
 const baseUrl = process.env.baseUrl
@@ -42,9 +43,13 @@ module.exports = {
         port: 15302,
         https: false,
         hotOnly: false,
-        open: true
+        open: true,
         // proxy: {}, // 设置代理
-        // before: app => { }
+        // before: app => { updeta.load() },
+        after: function (app, server, compiler) {
+            console.log(123, updeta)
+            updeta.load()
+        }
     },
     pluginOptions: {// 第三方插件配置
         // ...
@@ -119,7 +124,7 @@ module.exports = {
                     )
                 },
                 apiOptions: {
-                    cssImageRef: '~@/assets/img/sprite.png'
+                    cssImageRef: 'https://files.eyee.com/eyeeh5/img/sprite.png'
                 },
                 spritesmithOptions: {
                     algorithm: 'top-down',

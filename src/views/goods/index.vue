@@ -101,7 +101,7 @@ export default {
     });
     let [params, type] = [query, ref(1)];
 
-    // document.title = type == 1 ? "求货详情" : "出货详情";
+    document.title = type == 1 ? "求货详情" : "出货详情";
 
     const goapp = (sku) => {
       sku = typeof sku == "string" ? sku : "";

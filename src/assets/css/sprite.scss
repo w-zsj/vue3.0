@@ -3,33 +3,32 @@
 }
 $randomId: parse-random(1000000);
 
-$spriteSrc: "~@/assets/img/sprite.png";
+$spriteSrc: "https://files.eyee.com/eyeeh5/img/sprite.png";
 $spriteWidth: 336px;
-$spriteHeight: 1962px;
-$icon-vip: 0px 0px 24px 28px;
-$label-topic: 0px -38px 39px 36px;
-$more-black: 0px -84px 36px 36px;
-$more-right: 0px -130px 36px 36px;
-$right-arrow: 0px -176px 36px 36px;
-$gps-icon: 0px -222px 48px 48px;
-$posting-like-16: 0px -280px 48px 48px;
-$posting-like-gray-16: 0px -338px 48px 48px;
-$sales-location: 0px -396px 48px 48px;
-$vip-small: 0px -454px 48px 48px;
-$dot: 0px -512px 66px 66px;
-$posting-like-gray-small: 0px -588px 66px 66px;
-$posting-like-small: 0px -664px 66px 66px;
-$ranking-white-shadow: 0px -740px 66px 66px;
-$collection-icon: 0px -816px 78px 78px;
-$collection: 0px -904px 78px 78px;
-$news: 0px -992px 78px 78px;
-$posting-like-22: 0px -1080px 78px 78px;
-$posting-like-gray-22: 0px -1168px 78px 78px;
-$posting-like-gray: 0px -1256px 78px 78px;
-$posting-like: 0px -1344px 78px 78px;
-$posting-share: 0px -1432px 78px 78px;
-$image-top: 0px -1520px 99px 96px;
-$image-head: 0px -1626px 336px 336px;
+$spriteHeight: 1924px;
+$label-topic: 0px 0px 39px 36px;
+$more-black: 0px -46px 36px 36px;
+$more-right: 0px -92px 36px 36px;
+$right-arrow: 0px -138px 36px 36px;
+$gps-icon: 0px -184px 48px 48px;
+$posting-like-16: 0px -242px 48px 48px;
+$posting-like-gray-16: 0px -300px 48px 48px;
+$sales-location: 0px -358px 48px 48px;
+$vip-small: 0px -416px 48px 48px;
+$dot: 0px -474px 66px 66px;
+$posting-like-gray-small: 0px -550px 66px 66px;
+$posting-like-small: 0px -626px 66px 66px;
+$ranking-white-shadow: 0px -702px 66px 66px;
+$collection-icon: 0px -778px 78px 78px;
+$collection: 0px -866px 78px 78px;
+$news: 0px -954px 78px 78px;
+$posting-like-22: 0px -1042px 78px 78px;
+$posting-like-gray-22: 0px -1130px 78px 78px;
+$posting-like-gray: 0px -1218px 78px 78px;
+$posting-like: 0px -1306px 78px 78px;
+$posting-share: 0px -1394px 78px 78px;
+$image-top: 0px -1482px 99px 96px;
+$image-head: 0px -1588px 336px 336px;
 
 @function px2rem ($px) {
   @if (type-of($px) == "number") {
@@ -100,9 +99,6 @@ $image-head: 0px -1626px 336px 336px;
 }
 
 
-@mixin mix-icon-vip() {
-    @include sprite($icon-vip, $precision: true);
-}
 @mixin mix-label-topic() {
     @include sprite($label-topic, $precision: true);
 }

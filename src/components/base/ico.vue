@@ -90,13 +90,6 @@ export default {
   }
 }
 
-.ico-icon-vip {
-  width: 9 * $px;
-  height: 10.5 * $px;
-  i {
-    @include mix-icon-vip();
-  }
-}
 
 .ico-posting-like {
   width: 26 * $px;
@@ -166,13 +159,6 @@ export default {
   height: 22 * $px;
   i {
     @include mix-ranking-white-shadow();
-  }
-}
-.ico-vip-small {
-  width: 16 * $px;
-  height: 16 * $px;
-  i {
-    @include mix-vip-small();
   }
 }
 .ico-image-top {

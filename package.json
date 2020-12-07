@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:prod": "node build/upload.js & vue-cli-service build --mode production",
+    "build:dev": "node build/upload.js & vue-cli-service build --mode development",
     "analyz": "ANALAYZ_PORT=true npm run build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "core-js": "^3.6.5",
     "vue": "^3.0.0-beta.1"
   },
@@ -23,8 +25,9 @@
     "core-js": "^3.8.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-alpha.0",
-    "node-sass": "^4.0.0",
-    "sass-loader": "^7.3.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "upyun": "^3.4.4",
     "vue-cli-plugin-vue-next": "~0.1.4",
     "vue-loader": "^15.9.5",
     "vue-loader-v16": "^16.0.0-beta.5.4",
