@@ -6,7 +6,12 @@ import App from './App.vue'
 import router from "./router"
 import store from "./store"
 
+import Vant from 'vant';
+import { Toast } from 'vant';
+import { Popup } from 'vant';
+
 import ico from './components/base/ico'
+import Empty from './components/base/Empty'
 
 const app = createApp({
     data() {
@@ -28,11 +33,26 @@ const app = createApp({
         this.ipx = (dw === 375 && dh === 812) || (dw === 414 && dh === 896)
     }
 })
+app.config.globalProperties.$filters = {
+    NumFormat(val) {
+        return val <= 0 ? 0 : parseFloat(val);
+    },
+    floatPercent: function (val) {
+        return val <= 0 ? 0 : parseFloat((val * 100));
+    },
+    techRateFormat: function (val) {
+        console.log('val--',parseFloat(val))
+        return val <= 0 ? 0 : parseFloat((val * 100));
+    },
+}
 app.component('ico', ico)
-
+app.component('empty', Empty)
 app.mixin(Mixins)
     .use(router)
     .use(store)
+    .use(Vant)
+    .use(Toast)
+    .use(Popup)
     .mount('#app')
 
 export default app
