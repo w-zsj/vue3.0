@@ -26,5 +26,6 @@ export default {
   height: 50 * $px;
   background: yellowgreen;
   color: #fff;
+  @include flex(flex, center, center);
 }
 </style>

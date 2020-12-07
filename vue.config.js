@@ -42,6 +42,7 @@ module.exports = {
         port: 15302,
         https: false,
         hotOnly: false,
+        open: true
         // proxy: {}, // 设置代理
         // before: app => { }
     },
@@ -88,7 +89,7 @@ module.exports = {
             ])
         }
         config.externals({
-            vue: 'Vue',
+            'vue': 'Vue',
             'vue-router': 'VueRouter',
             'nutui': 'nutui'
         })
