@@ -113,7 +113,7 @@
           </div>
         </div>
       </div>
-      <rateUnit></rateUnit>
+      <rateUnit v-if="rateInfo && rateInfo.servicerate"></rateUnit>
       <!--  -->
     </div>
     <van-popup
@@ -149,9 +149,10 @@
       round
     >
       <van-picker
+        :class="{ ipx: $root.ipx }"
         :columns="serviceRates"
         title="请选择技术服务费"
-        @cancel="closeProductSwitch"
+        @cancel="closeProductSwitch('isVisible3')"
         @confirm="confirmBindTechChange"
       ></van-picker>
     </van-popup>
@@ -165,7 +166,7 @@
         :class="{ ipx: $root.ipx }"
         :columns="prodTypeListData"
         title="请选择商品类型"
-        @close="closeProductSwitch('isVisible3')"
+        @cancel="closeProductSwitch('isVisible3')"
         @confirm="confirmProduct"
       >
       </van-picker>
@@ -220,8 +221,11 @@ import {
   reactive,
   ref,
   onMounted,
-  toRefs,
   provide,
+  computed,
+  triggerRef,
+  toRefs,
+  watch,
 } from "vue";
 import { Toast } from "vant";
 export default {
@@ -249,30 +253,29 @@ export default {
       currClass: ref(0),
       techIndex: ref(0),
       sharetype: ref("stock"),
-      serFeeRate: ref(""),
-      serviceRates: reactive(["5%", "3.5%", "2%", "1.8%", "1.2%"]),
+      serviceRates: ["5%", "3.5%", "2%", "1.8%", "1.2%"],
       currRadio: ref(0),
-      radioLists: reactive([
+      radioLists: [
         { value: "0", name: "默认" },
         { value: "1", name: "自定义" },
-      ]),
-      tabClasses: reactive(["出价", "货号"]),
+      ],
+      tabClasses: ["出价", "货号"],
       typeIndex: ref(0),
       sizeLists: reactive([]),
-      prodTypeList: reactive([
+      prodTypeList: [
         { label: 1, value: "常规球鞋" },
         { label: "-1", value: "拖鞋童鞋" },
         { label: "-2", value: "其他商品" },
-      ]),
+      ],
       prodTypeListData: reactive([]),
       selfRatePopup: ref(false),
       serviceRatePopup: ref(false),
       producttypePopup: ref(false),
       listplatPopup: ref(false),
     };
+    let serFeeRate = ref("");
+
     document.title = "计算器";
-    provide("rateInfo", data.rateInfo.value);
-    provide("servicerate", data.serFeeRate.value);
 
     const showLablePop = () => {
       data.listplatPopup.value = !data.listplatPopup.value;
@@ -290,14 +293,13 @@ export default {
         platform: data.platformId.value,
         type: data.currProdTypeid.value,
       };
-      console.log("para--", para);
+
       CalculatePrice(para).then((res) => {
         if (res) {
           data.rateInfo.value = res;
-          data.serFeeRate.value = res.servicerate;
+          serFeeRate.value = res.servicerate;
           let temRate = (res.servicerate * 100).toFixed(2);
           let temServiec = "";
-
           data.serviceRates.forEach((it, index) => {
             temServiec = it.split("%")[0];
             if (parseFloat(temServiec) == temRate) {
@@ -332,7 +334,7 @@ export default {
       let index = data.serviceRates.findIndex((i) => i == e);
       data.techIndex.value = index >= 0 ? index : 0;
       let temRate = data.serviceRates[index].split("%")[0];
-      data.serFeeRate.value = parseFloat((temRate / 100).toFixed(3));
+      serFeeRate.value = parseFloat((temRate / 100).toFixed(3));
       data.serviceRatePopup.value = false;
     };
     const closeProductSwitch = (e) => {
@@ -356,7 +358,7 @@ export default {
       if (item.value == 1) {
         data.selfRatePopup.value = true;
       } else {
-        data.serFeeRate.value = data.rateInfo.value.servicerate;
+        serFeeRate.value = data.rateInfo.value.servicerate;
       }
     };
     const formatDecimal = (num, type = 3) => {
@@ -376,24 +378,17 @@ export default {
     const confirmRate = () => {
       let temval = data.selfRate.value;
       if (temval == "" || temval == null) {
-        // data.$toast.text("请输入数字", {
-        //   duration: 2000,
-        //   closeOnClickOverlay: false,
-        // });
+        Toast("请输入数字");
         data.selfRate.value = null;
         return;
       }
       if (!isNaN(temval)) {
         let temrate = temval / 100;
-        data.serFeeRate.value = parseFloat(data.formatDecimal(temval, 1)) / 100;
-        console.log(data.serFeeRate.value);
+        serFeeRate.value = parseFloat(data.formatDecimal(temval, 1)) / 100;
         data.myselfRate.value = data.NumberFotOne(temval);
         data.selfRatePopup.value = false;
       } else {
-        // data.text("请输入数字", {
-        //   duration: 2000,
-        //   closeOnClickOverlay: false,
-        // });
+        Toast("请输入数字");
         data.selfRate.value = 0;
       }
     };
@@ -409,10 +404,7 @@ export default {
       let prokey = data.prokey.value.trim();
       console.log(prokey);
       if (prokey == "") {
-        // data.$toast.text("请输入商品货号", {
-        //   duration: 2000,
-        //   closeOnClickOverlay: false,
-        // });
+        Toast("请输入商品货号");
       } else {
         let para = {
           platform: data.platformId.value,
@@ -424,10 +416,7 @@ export default {
           })
           .catch((e) => {
             if (e.code == 200) {
-              //   data.$toast.text("请输入正确的商品货号", {
-              //     duration: 2000,
-              //     closeOnClickOverlay: false,
-              //   });
+              Toast("请输入正确的商品货号");
             }
           });
       }
@@ -438,8 +427,13 @@ export default {
         data.prodTypeListData.push(i.value);
       });
     });
+    provide(
+      "rateInfo",
+      computed(() => data.rateInfo.value)
+    );
     return {
       ...data,
+      serFeeRate,
       showLablePop,
       getPlatformlist,
       getRateDetl,
@@ -466,6 +460,11 @@ export default {
 // .top-plats::-webkit-scrollbar {
 //   display: none;
 // }
+.van-picker {
+  &.ipx {
+    padding-bottom: 34px;
+  }
+}
 .triangle_down {
   display: inline-block;
   width: 0;
@@ -728,6 +727,7 @@ export default {
     height: 162px;
     background-color: #fff;
     padding: 17px 15px 15px;
+    margin: 0 auto;
     &-title {
       color: #232323;
       font-size: 18px;

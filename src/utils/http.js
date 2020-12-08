@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Toast } from 'vant';
 // import Bus from './bus'
 const version = process.env.VUE_APP_VERSION
 
@@ -7,17 +8,18 @@ const http = axios.create({
     baseURL: process.env.VUE_APP_DOMAIN,
     timeout: 8000
 })
-// const close = () => {
-//   Bus.$emit('Loading', false)
-// }
 // 请求拦截器
 http.interceptors.request.use(conf => {
     //   Bus.$emit('Loading', true)
+    Toast.loading({
+        message: '加载中...',
+        forbidClick: true,
+    });
     conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '', os: 'h5', deviceid: 'h5', version }
     return conf
 }, err => {
     console.log('--->request error', err)
-    //   close()
+    Toast.clear()
     return Promise.reject(err)
 })
 
@@ -37,7 +39,7 @@ const responseReject = e => {
         res.msg = res.code === 10721 ? (data.msg + (data.data ? (',' + data.data) : '')) : (data.msg || data.message || statusText || JSON.stringify(e))
     }
 
-    //   close()
+    Toast.clear()
     return Promise.reject(res)
 }
 
@@ -46,6 +48,7 @@ http.interceptors.response.use(res => {
     console.log('-->response', res)
     if (res.status === 200) {
         if (res.data && res.data.code === 1511200) {
+            Toast.clear()
             let data = res.data.data
             return data
         }

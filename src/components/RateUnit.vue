@@ -2,15 +2,8 @@
   <div class="rate-unit">
     <div class="price-detail">
       <div class="current-price gap-liner">
-        <div class="current-price-name">
-          当前价格{{ isReadonly ? "" : "(￥)" }}
-        </div>
-        <div class="current-price-inpt" v-if="isReadonly">
-          <div class="symbol-price">￥</div>
-          <div class="curr-price">{{ currPrice || 0 }}</div>
-        </div>
+        <div class="current-price-name">当前价格(￥)</div>
         <input
-          v-else
           class="current-price-inpt"
           type="number"
           v-model="currentPrice"
@@ -55,9 +48,7 @@
           <div class="other-price-list-number">
             ￥{{
               $filters.NumFormat(
-                currentPrice == 0 && !isReadonly
-                  ? 0
-                  : techPrice + transPrice + otherFee
+                currentPrice == 0 ? 0 : techPrice + transPrice + otherFee
               )
             }}
           </div>
@@ -66,14 +57,7 @@
           <div>预计到手价</div>
           <div class="handprice">
             <div class="ft_size36">￥</div>
-            <div v-if="isReadonly" class="other-price-total-number font-Oswald">
-              {{
-                $filters.NumFormat(
-                  currPrice - (techPrice + transPrice + otherFee)
-                )
-              }}
-            </div>
-            <div v-else class="other-price-total-number font-Oswald">
+            <div class="other-price-total-number font-Oswald">
               {{
                 $filters.NumFormat(
                   currentPrice - (techPrice + transPrice + otherFee)
@@ -91,14 +75,7 @@
           </div>
           <div class="color-red self-comp-price">
             <div>￥</div>
-            <div v-if="isReadonly">
-              {{
-                $filters.NumFormat(
-                  currPrice - (transPrice + otherFee + compaPrice)
-                )
-              }}
-            </div>
-            <div v-else>
+            <div>
               {{
                 $filters.NumFormat(
                   currentPrice - (transPrice + otherFee + compaPrice)
@@ -117,26 +94,23 @@ import { inject, computed, ref, reactive, watchEffect } from "vue";
 import { Toast } from "vant";
 export default {
   props: {
-    currPrice: { type: [Number, String], default: 0 },
-    rateInfo: {
-      type: Object,
-    },
-    servicerate: { type: [Number, String] },
-    isReadonly: { type: Boolean, default: false },
+    // currPrice: { type: [Number, String], default: 0 },
+    // rateInfo: {
+    //   type: Object,
+    // },
+    // servicerate: { type: [Number, String] },
     // selfRate:{type: [Number,String],default:'0.035'}
   },
   setup(props) {
-    let rateInfo = props.rateInfo || inject("rateInfo");
-    let servicerate = props.servicerate ||  inject("servicerate");
-    let currPrice = props.currPrice;
-    let isReadonly = props.isReadonly;
-    let currentPrice = reactive(null);
-    watchEffect(() => {
-      console.log("rateInfo--", rateInfo);
-    });
+    let rateInfo = inject("rateInfo", {});
+    let servicerate = rateInfo.value.servicerate;
+
+    let currPrice = ref(null);
+    let currentPrice = ref(null);
+    // console.log("currPrice--", currPrice);
 
     const otherFee = computed(() => {
-      let allInfo = rateInfo;
+      let allInfo = rateInfo.value;
       let checkfee = allInfo.checkfee || 0;
       let identifyfee = allInfo.identifyfee || 0;
       let packfee = allInfo.packfee || 0;
@@ -144,25 +118,32 @@ export default {
       return parseFloat(allSum.toFixed(2));
     });
     const sneakerRate = computed(() => {
-      return rateInfo.myservicerate || 0;
+      return rateInfo.value.myservicerate || 0;
     });
     const transRate = computed(() => {
-      return rateInfo.transferrate || 0;
+      return rateInfo.value.transferrate || 0;
     });
     const maxFee = computed(() => {
-      return rateInfo.maxskillfee || "Infinity";
+      return rateInfo.value.maxskillfee || "Infinity";
     });
     const minFee = computed(() => {
-      return rateInfo && rateInfo.lowerskillfee ? rateInfo.lowerskillfee : 0;
+      return rateInfo.value && rateInfo.value.lowerskillfee
+        ? rateInfo.value.lowerskillfee
+        : 0;
     });
     const serRate = computed(() => {
       let tem = servicerate || 0;
       return tem == 0 ? 0 : tem.toFixed(3);
     });
     const minMax = computed(() => {
-      let min = rateInfo && rateInfo.lowerskillfee ? rateInfo.lowerskillfee : 0;
+      let min =
+        rateInfo.value && rateInfo.value.lowerskillfee
+          ? rateInfo.value.lowerskillfee
+          : 0;
       let max =
-        rateInfo && rateInfo.maxskillfee ? rateInfo.maxskillfee : "Infinity";
+        rateInfo.value && rateInfo.value.maxskillfee
+          ? rateInfo.value.maxskillfee
+          : "Infinity";
       let temStr = "";
       if (min == 0 && max == "Infinity") {
         temStr = "";
@@ -177,64 +158,67 @@ export default {
     });
     const techPrice = computed({
       get: function () {
-        let temprice = isReadonly ? currPrice : currentPrice;
-
+        let temprice = currentPrice.value;
         if (temprice < 0) {
           return 0;
         } else {
-          if (maxFee == "Infinity") {
-            return temprice * serRate < minFee ? minFee : temprice * serRate;
+          if (maxFee.value == "Infinity") {
+            return temprice * serRate.value < minFee.value
+              ? minFee.value
+              : temprice * serRate.value;
           } else {
-            return temprice * serRate > maxFee
-              ? maxFee
-              : temprice * serRate < minFee
-              ? minFee
-              : temprice * serRate;
+            return temprice * serRate.value > maxFee.value
+              ? maxFee.value
+              : temprice * serRate.value < minFee.value
+              ? minFee.value
+              : temprice * serRate.value;
           }
         }
       },
       set: function (val) {
-        console.log(val);
-        // this.currentPrice = val
+        console.log("techPrice", val);
+        // this.currentPrice.value = val
       },
     });
     const compaPrice = computed({
       get: function () {
-        let temprice = isReadonly ? currPrice : currentPrice;
+        let temprice = currentPrice.value;
         let temPri = 0;
         if (temprice < 0) {
           return 0;
         } else {
-          if (maxFee == "Infinity") {
+          if (maxFee.value == "Infinity") {
             temPri =
-              temprice * sneakerRate < minFee ? minFee : temprice * sneakerRate;
+              temprice * sneakerRate.value < minFee.value
+                ? minFee.value
+                : temprice * sneakerRate.value;
           } else {
             temPri =
-              temprice * sneakerRate > maxFee
-                ? maxFee
-                : temprice * sneakerRate < minFee
-                ? minFee
-                : temprice * sneakerRate;
+              temprice * sneakerRate.value > maxFee.value
+                ? maxFee.value
+                : temprice * sneakerRate.value < minFee.value
+                ? minFee.value
+                : temprice * sneakerRate.value;
           }
           return parseFloat(temPri.toFixed(2));
         }
       },
       set: function (val) {
         console.log(val);
-        // this.currentPrice = val
+        // this.currentPrice.value = val
       },
     });
     const transPrice = computed({
       get: function () {
-        let temprice = isReadonly ? currPrice : currentPrice;
+        let temprice =currentPrice.value;
         if (temprice < 0) {
           return 0;
         } else {
-          return transRate * temprice;
+          return transRate.value * temprice;
         }
       },
       set: function (val) {
-        // this.currentPrice = val
+        // this.currentPrice.value = val
       },
     });
 
@@ -243,12 +227,13 @@ export default {
       let currPrice = e.target.value;
       if (currPrice < 0) {
         Toast("请输入整数");
-        currentPrice = 0;
+        currentPrice.value = 0;
       } else {
-        currentPrice = Number(currPrice);
+        currentPrice.value = Number(currPrice);
       }
     };
     return {
+      currPrice,
       currentPrice,
       rateInfo,
       servicerate,

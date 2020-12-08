@@ -35,14 +35,13 @@ const app = createApp({
 })
 app.config.globalProperties.$filters = {
     NumFormat(val) {
-        return val <= 0 ? 0 : parseFloat(val);
+        return val < 0 ? 0 : parseFloat(val).toFixed(2);
     },
     floatPercent: function (val) {
-        return val <= 0 ? 0 : parseFloat((val * 100));
+        return val < 0 ? 0 : parseFloat((val * 100)).toFixed(2);
     },
     techRateFormat: function (val) {
-        console.log('val--',parseFloat(val))
-        return val <= 0 ? 0 : parseFloat((val * 100));
+        return val < 0 ? 0 : parseFloat((val * 100)).toFixed(2);
     },
 }
 app.component('ico', ico)
