@@ -118,7 +118,6 @@
     </div>
     <van-popup
       v-model:show="selfRatePopup"
-      position="bottom"
       transition="popup-fade"
       style="borderradius: 12px"
     >
