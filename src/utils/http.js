@@ -11,10 +11,11 @@ const http = axios.create({
 // 请求拦截器
 http.interceptors.request.use(conf => {
     //   Bus.$emit('Loading', true)
-    Toast.loading({
-        message: '加载中...',
-        forbidClick: true,
-    });
+    if (conf.loading)
+        Toast.loading({
+            message: '加载中...',
+            forbidClick: true,
+        });
     conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '', os: 'h5', deviceid: 'h5', version }
     return conf
 }, err => {
@@ -88,8 +89,8 @@ const GET = (url, params = {}) => {
  * @param {String} url 请求地址
  * @param {Object?} params 请求参数
  */
-const POST = (url, params = {}) => {
-    let config = {}
+const POST = (url, params = {}, loading = 1) => {
+    let config = { loading }
     let { realUrl, baseURL } = dealUrl(url)
     if (baseURL) config.baseURL = baseURL
     return http.post(realUrl, params, config)

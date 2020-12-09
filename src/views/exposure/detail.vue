@@ -92,6 +92,8 @@ export default {
       computed(() => _.exposureDetail.value)
     );
     provide("id", params.id);
+    provide("pagetype", "exposureDetail");
+
     const goapp = () => {
       ctx.callApp({
         name: "exposureDetail",

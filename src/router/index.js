@@ -13,6 +13,7 @@ const router = createRouter({
         { path: '/shipment/index', name: 'ShipmentIndex', component: () => import('@/views/shipment/index'), meta: { title: '求/出货上传' } }, // 求/出货上传
         { path: '/shipment/index', name: 'ShipmentIndex', component: () => import('@/views/shipment/index'), meta: { title: '求/出货上传' } }, // 求/出货上传
         { path: '/exposure/detail/:id', name: 'exposureDetail', component: () => import('@/views/exposure/detail'), meta: { title: '曝光台详情' } }, // 曝光台详情
+        { path: '/posting/detail/:id', name: 'postingDetail', component: () => import('@/views/posting/detail'), meta: { title: '帖子详情' } }, // 帖子详情
     ]
 })
 router.beforeEach((to, from, next) => {

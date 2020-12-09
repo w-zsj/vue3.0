@@ -92,11 +92,12 @@ export default {
     let commentcount = inject("commentcount");
     provide("sourceType", 4);
     let id = inject("id");
+    let pagetype = inject("pagetype",'')
     const { ctx } = getCurrentInstance();
     // console.log("id--->>", id);
     const goapp = () => {
       ctx.callApp({
-        name: "exposureDetail",
+        name: pagetype,
         id: params.id || "",
       });
     };
