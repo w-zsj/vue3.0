@@ -5,18 +5,17 @@
     </div>
     <van-button type="primary">主要按钮</van-button>
     <empty></empty>
-    <!-- <GoAppBtn ></GoAppBtn> -->
   </div>
 </template>
 <script>
-import { getCurrentInstance, ref, onMounted, provide } from "vue";
-import { Toast } from 'vant';
-import GoAppBtn from "comps/GoAppBtn";
+import { getCurrentInstance, ref, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
+
+import { Toast } from "vant";
 export default {
   name: "home",
-  components: {
-    GoAppBtn,
-  },
+  components: {},
   setup(props, context) {
     const instance = getCurrentInstance();
     const {
@@ -24,6 +23,17 @@ export default {
       ctx: { $router },
     } = instance;
     let title = ref("首页 不是承接页");
+    console.log("ctx---", ctx.$root);
+
+    // const store = useStore()
+    // router的使用
+    // const router = useRouter();
+    // router.push(`/list/${type}`);
+
+    // route当前页面路由
+    // const route = useRoute();
+    // route.params.id;
+
     let toHome = () => {
       console.log("当前实例", instance);
       $router.push("/about/privacy");
@@ -34,8 +44,7 @@ export default {
     const title_changed = (val) => {
       // console.log("emit--", val);
     };
-    Toast('toast')
-    provide("txt", location);
+    // Toast("toast");
     return { title, toHome, title_changed };
   },
 };
@@ -48,7 +57,7 @@ export default {
   // background: yellowgreen;
   margin: 100px auto;
   color: #000;
-  font-weight: bold;;
+  font-weight: bold;
   @include flex(flex, center, center);
 }
 </style>

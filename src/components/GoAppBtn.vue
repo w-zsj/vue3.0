@@ -17,10 +17,7 @@ export default {
   setup(props, context) {
     const { ctx } = getCurrentInstance();
     const goapp = () => ctx.callApp();
-    let txt = inject("txt") ? inject("txt") : props.txt;
-    // context.emit("title_changed",'laoliu');
-    console.log("props--", inject("txt"), context, txt);
-    return { goapp, txt };
+    return { goapp };
   },
 };
 </script>

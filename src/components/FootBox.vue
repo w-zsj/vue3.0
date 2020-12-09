@@ -1,38 +1,51 @@
 <template>
-  <div class="footBox flex flex-aic" :class="{'static':!position,'ipx':ipx}" @click="callApp">
+  <div
+    class="footBox flex flex-aic"
+    :class="{ static: !position, ipx: ipx }"
+    @click="callApp"
+  >
     <div class="input flex-aic">我有话说...</div>
     <div class="laud flex flex-aic">
-      <ico :name="info.attitudecount>0?'posting-like':'posting-like-gray'"></ico>
-      <span class="fontBold">{{info&&info.attitudecount}}</span>
+      <ico :name="info && info.attitudecount > 0 ? 'posting-like' : 'posting-like-gray'"></ico>
+      <span class="fontBold">{{ info && info.attitudecount }}</span>
     </div>
     <div class="collect">
-      <ico :name="info&&info.collected?'collection':'collection-icon'"></ico>
+      <ico
+        :name="info && info.collected ? 'collection' : 'collection-icon'"
+      ></ico>
     </div>
-    <ico :name="!position?'news':'posting-share'"></ico>
+    <ico :name="!position ? 'news' : 'posting-share'"></ico>
   </div>
 </template>
 <script>
+import { inject, provide } from "vue";
 export default {
   props: {
     info: {
       type: Object,
-      default: {}
+      default: {},
     },
     position: {
       // 视屏详情 取消定位
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  computed: {
-    ipx () {
-      return this.$root.ipx
-    }
+  setup() {
+    let info = inject("info");
+    console.log('info--->>',info)
+    const ipx = () => {
+      let dw = window.screen.width;
+      let dh = window.screen.height;
+      return (dw === 375 && dh === 812) || (dw === 414 && dh === 896);
+      // return $root.ipx
+    };
+    return {
+      info,
+      ipx,
+    };
   },
-  mounted () {
-    console.log('postingDetail', this)
-  }
-}
+};
 </script>
 <style  scoped lang="scss">
 .footBox {

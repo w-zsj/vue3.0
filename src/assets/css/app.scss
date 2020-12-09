@@ -1,9 +1,8 @@
 /* common */
 @font-face {
   font-family: OswaldBold;
-  src: url('https://files.eyee.com/eyeeh5/font/Oswald.otf');
+  src: url("https://files.eyee.com/eyeeh5/font/Oswald.otf");
 }
-
 
 * {
   margin: 0 0;
@@ -26,8 +25,8 @@ body {
   min-width: 320px;
   overflow-x: hidden;
   margin: 0 auto;
-  padding-bottom: 15*$px;
-  font-size: 14*$px; // 相对根字体设置基础字体 14px
+  padding-bottom: 15 * $px;
+  font-size: 14 * $px; // 相对根字体设置基础字体 14px
   font-weight: 400;
   // color: $color-23;
 }
@@ -63,15 +62,21 @@ div {
     height: 375px !important;
   }
 }
-
+.avatar {
+  $size: 32 * $px;
+  width: $size;
+  height: $size;
+  border-radius: 100%;
+  overflow: hidden;
+}
 .gap {
-  border-bottom: 5*$px solid #f5f5f5;
+  border-bottom: 5 * $px solid #f5f5f5;
 }
 
 .subtxt {
   color: $color-96;
-  font-size: 10*$px;
-  line-height: 14*$px;
+  font-size: 10 * $px;
+  line-height: 14 * $px;
 }
 
 .sec-title {
@@ -81,14 +86,14 @@ div {
 }
 
 .btn-open-app {
-  $height: 32*$px;
-  margin: 0 15*$px;
+  $height: 32 * $px;
+  margin: 0 15 * $px;
   width: 90%;
   line-height: $height;
   font-weight: bold;
   border-radius: 2px;
   background-color: $color-red;
-  color:#fff;
+  color: #fff;
 }
 
 .txt-center {
@@ -106,68 +111,73 @@ div {
   background: rgba(0, 0, 0, 0.6);
   img {
     position: absolute;
-    top: 12*$px;
-    right: 30*$px;
-    width: 215*$px;
+    top: 12 * $px;
+    right: 30 * $px;
+    width: 215 * $px;
   }
 }
 
-.flex,[class*=" flex-"],[class^=flex-]{
+.flex,
+[class*=" flex-"],
+[class^="flex-"] {
   display: flex;
 }
 .flex-between-start {
   justify-content: space-between;
 }
-.flex-center{
+.flex-center {
   justify-content: center;
   align-items: center;
 }
-.flex-col{
+.flex-col {
   flex-direction: column;
 }
-.flex-aic{
+.flex-aic {
   justify-content: flex-start;
   align-items: center;
 }
-.flex-tops{
+.flex-tops {
   justify-content: flex-start;
   align-items: end;
 }
-.flex-wrap{
+.flex-wrap {
   flex-wrap: wrap;
 }
-.flex-end{
-  justify-content: flex-end!important;
+.flex-end {
+  justify-content: flex-end !important;
   align-items: center;
 }
-.flex-between{
+.flex-between {
   justify-content: space-between;
   align-items: center;
 }
-.flex-around{
+.flex-around {
   justify-content: space-around;
   align-items: center;
 }
-.flex-ctr-end{
+.flex-ctr-end {
   justify-content: center;
   align-items: flex-end;
 }
 
-.font-Oswald{
+.font-Oswald {
   font-family: OswaldBold;
 }
 
-.nut-hor-scroll .nut-hor-list{
+.nut-hor-scroll .nut-hor-list {
   padding-right: 60px;
 }
-.txt-over, [class*="--txt-over"] {
+.txt-over,
+[class*="--txt-over"] {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   max-width: 100%;
 }
 
-[class*="--txt-over-"],.txt-over-2, .txt-over-3 {
+[class*="--txt-over-"],
+.txt-over-2,
+.txt-over-3 {
   display: -webkit-box !important;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -176,17 +186,18 @@ div {
   max-width: 100%;
   white-space: normal;
 }
-[class*="--txt-over-2"],.txt-over-2 {
-  -webkit-line-clamp: 2!important;
+[class*="--txt-over-2"],
+.txt-over-2 {
+  -webkit-line-clamp: 2 !important;
 }
 .txt-over-3 {
   -webkit-line-clamp: 3;
 }
-.fontBold{
+.fontBold {
   font-weight: bold;
 }
-.header-top{
-  padding-top: 50*$px;
+.header-top {
+  padding-top: 50 * $px;
 }
 
 .padding-15 {
@@ -197,9 +208,9 @@ div {
   padding-bottom: 20 * $px;
 }
 .gap-line {
-  border-bottom: 10 * $px solid #FAFAFA;;
+  border-bottom: 10 * $px solid #fafafa;
 }
-.content img{
+.content img {
   max-width: 100%;
 }
 

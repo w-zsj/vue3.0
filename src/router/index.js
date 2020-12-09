@@ -11,6 +11,8 @@ const router = createRouter({
         { path: '/about/agreement', name: 'useragreement', component: () => import('@/views/about/userAgreement'), meta: { title: '用户协议' } }, // 隐私政策
         { path: '/about/privacy', name: 'PrivacyPolicy', component: () => import('@/views/about/privacyPolicy'), meta: { title: '隐私政策' } }, // 用户协议
         { path: '/shipment/index', name: 'ShipmentIndex', component: () => import('@/views/shipment/index'), meta: { title: '求/出货上传' } }, // 求/出货上传
+        { path: '/shipment/index', name: 'ShipmentIndex', component: () => import('@/views/shipment/index'), meta: { title: '求/出货上传' } }, // 求/出货上传
+        { path: '/exposure/detail/:id', name: 'exposureDetail', component: () => import('@/views/exposure/detail'), meta: { title: '曝光台详情' } }, // 曝光台详情
     ]
 })
 router.beforeEach((to, from, next) => {
