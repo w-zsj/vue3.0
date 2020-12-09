@@ -22,13 +22,16 @@
               placeholder="请输入尺码，用英文逗号隔开"
               v-model="sizes"
             />
-            <button
-              class="base_butn"
-              style="margin: 0 0 0 0"
-              @click="inportShip"
-            >
-              添加
-            </button>
+            <div class="_btn">
+              <button
+                class="base_butn"
+                style="margin: 0 0 0 0"
+                @click="inportShip"
+              >
+                添加
+              </button>
+              <span class="updeta" @click="moreUpdeta">表格批量上传</span>
+            </div>
           </div>
         </div>
         <div class="shipment-item top_table">
@@ -85,13 +88,45 @@
         </div>
       </div>
     </div>
+
+    <!-- 弹框 -->
+    <van-popup
+      v-model:show="UpdetaModal"
+      transition="popup-fade"
+      :style="{ padding: '30px', width: '70% ' }"
+      :round="true"
+    >
+      <div class="updeta_modal">
+        <div class="tit">请按以下格式填写表格</div>
+        <div class="temp">
+          <img src="../../assets/img/form_temp.png" alt="" />
+        </div>
+        <div class="up-btn">
+          <button type="light" shape="circle" class="canl" @click="closeModal">
+            取消
+          </button>
+          <van-uploader :after-read="afterRead" accept="file">
+            <van-button icon="plus" type="">选择文件</van-button>
+          </van-uploader>
+          <!-- <button @click="confirm">选择文件</button> -->
+        </div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <script>
-import { checkShipment, addShipment } from "api/shipment.js";
+import { checkShipment, addShipment, uploadProduct } from "api/shipment.js";
 import NoContent from "comps/NoContent";
-import { reactive, ref, getCurrentInstance, onMounted, provide } from "vue";
+import {
+  reactive,
+  ref,
+  getCurrentInstance,
+  onMounted,
+  provide,
+  triggerRef,
+  toRaw,
+} from "vue";
 import { Toast } from "vant";
 export default {
   name: "ShipmentIndex",
@@ -102,7 +137,7 @@ export default {
       stype: ref(1),
       prokey: ref(""),
       sizes: ref(""),
-      dataSource: reactive([]),
+      dataSource: ref([]),
       columns: [
         { title: "货号", width: 120 },
         { title: "商品名称", width: 200 },
@@ -113,7 +148,10 @@ export default {
       loading: ref(false),
       disabledLoading: ref(false),
       currUid: ref(""),
+      UpdetaModal: ref(false),
     };
+
+    console.log(_.dataSource.value, "dataSource");
     // 获取实例
     const instance = getCurrentInstance();
     const {
@@ -136,12 +174,12 @@ export default {
     const changeType = (type) => {
       _.prokey.value = "";
       _.sizes.value = "";
-      _.dataSource = [];
+      _.dataSource.value = [];
       _.stype.value = type;
     };
     const deleteShip = (key) => {
-      const dataSource = [..._.dataSource];
-      _.dataSource = dataSource.filter((item, index) => index !== key);
+      const dataSource = [..._.dataSource.value];
+      _.dataSource.value = dataSource.filter((item, index) => index !== key);
     };
     const inportShip = async () => {
       const {
@@ -172,17 +210,16 @@ export default {
         Toast("请输入正确的尺码");
         return;
       }
-      const dataSource = _.dataSource;
-      console.log(dataSource, modelist);
+      console.log(_.dataSource.value, modelist);
       if (modelist && modelist.length > 0) {
-        _.dataSource = [...new Set([...dataSource, ...modelist])];
+        _.dataSource.value = [...new Set([..._.dataSource.value, ...modelist])];
         _.prokey.value = "";
         _.sizes.value = "";
       }
     };
 
     const submitShip = () => {
-      let temPara = JSON.parse(JSON.stringify(_.dataSource));
+      let temPara = JSON.parse(JSON.stringify(_.dataSource.value));
       if (temPara.length == 0) {
         Toast("请添加商品");
 
@@ -194,16 +231,35 @@ export default {
         delete item.picurl;
       });
 
-      addShipment({ type: this.stype, list: temPara, uid: this.currUid })
+      addShipment({ type: _.stype.value, list: temPara, uid: _.currUid.value })
         .then((data) => {
           data && Toast("提交成功,可在「嗜鞋APP-我的-商品买卖」中查看");
           _.disabledLoading.value = false;
-          _.dataSource = [];
+          _.dataSource.value = [];
         })
         .catch((err) => {
           _.disabledLoading.value = false;
           Toast(err.msg);
         });
+    };
+    const moreUpdeta = () => {
+      _.UpdetaModal.value = true;
+    };
+    const closeModal = () => {
+      _.UpdetaModal.value = false;
+    };
+    const afterRead = (data) => {
+      const formData = new FormData();
+      formData.append("file", data.file);
+      uploadProduct(formData)
+        .then((res) => {
+          if (res && res.modelist && res.modelist.length) {
+            _.dataSource.value = [..._.dataSource.value, ...res.modelist];
+            console.log("res--", _.dataSource);
+          }
+          closeModal();
+        })
+        .catch((err) => Toast(err));
     };
     return {
       ..._,
@@ -211,12 +267,55 @@ export default {
       deleteShip,
       inportShip,
       submitShip,
+      moreUpdeta,
+      afterRead,
+      closeModal,
     };
   },
 };
 </script>
-
+<style>
+.van-uploader__upload {
+  flex: 1 !important;
+  height: 35px !important ;
+}
+.van-uploader__upload-icon {
+  display: none;
+}
+</style>
 <style lang="scss" scoped>
+.updeta_modal {
+  .tit {
+    @include flex(flex, center, center, nowrap);
+    font-size: 18px;
+    font-weight: bold;
+  }
+  img {
+    margin: 30px auto;
+    width: 100%;
+    height: auto;
+  }
+
+  .up-btn {
+    font-size: 18px;
+    @include flex(flex, center, flex-start, nowrap);
+    button {
+      width: 112px;
+      height: 35px;
+      background: #1890ff;
+      color: #fff;
+      font-size: 15px;
+      border-radius: 8px;
+      @include flex(flex, center, center, nowrap);
+      &.canl {
+        background: none;
+        border: 1px solid #969696;
+        color: #232323;
+        margin-right: 20px;
+      }
+    }
+  }
+}
 .shipment-box {
   .shipment-item {
     @include flex(flex, flex-start, center, nowrap);
@@ -272,6 +371,14 @@ export default {
           &.size-inpt {
             max-width: 336px;
             width: 86%;
+          }
+        }
+        ._btn {
+          @include flex(flex, start, center);
+          .updeta {
+            color: #1890ff;
+            font-size: 14px;
+            padding-left: 10px;
           }
         }
       }

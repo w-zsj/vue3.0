@@ -7,7 +7,6 @@
         :key="item.id"
         :class="[platformId == item.id ? 'curr-tab' : '']"
         @click="switchTab(item, index)"
-        v-show="item.id != 13 && item.id != 14"
       >
         {{ item.name }}
       </div>
@@ -203,7 +202,6 @@
           :key="item.id"
           :class="[platformId == item.id ? 'curr-tab' : '']"
           @click="switchTab(item, index)"
-          v-show="item.id != 13 && item.id != 14"
         >
           {{ item.name }}
         </div>
@@ -281,7 +279,7 @@ export default {
     };
     const getPlatformlist = async () => {
       let temList = (await PlatformList()) || [];
-      data.platformList.value = temList;
+      data.platformList.value = temList.filter((i) => i.id != 13 && i.id != 14);
       console.log("platformList--", data.platformList);
       data.platformId.value = temList[0].id || "";
       data.currProdTypeid.value = data.prodTypeList[0].label;

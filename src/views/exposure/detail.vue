@@ -127,6 +127,7 @@ export default {
       ..._,
       getDetail,
       getCommentList,
+      goapp,
     };
   },
 };
