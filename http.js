@@ -16,7 +16,7 @@ http.interceptors.request.use(conf => {
             message: '加载中...',
             forbidClick: true,
         });
-    conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '', version }
+    conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '', os: 'h5', deviceid: 'h5', version }
     return conf
 }, err => {
     console.log('--->request error', err)
@@ -30,12 +30,14 @@ http.interceptors.request.use(conf => {
  */
 const responseReject = e => {
     e = e.response || e
-    let { data, status } = e
+    // console.error('--->response error', { ...e })
+    let { data, status, statusText } = e
     let res = { code: 0, msg: '网络异常' }
     if (status) {
         data = data || {}
         res.code = status === 200 ? (data.code || -1) : status
-        res.msg = data.msg || data.message
+        res.msg = res.code === -1 ? (data.msg + (data.data ? (',' + data.data) : '')) : (data.msg || data.message || statusText || JSON.stringify(e))
+        res.msg = res.code === 10721 ? (data.msg + (data.data ? (',' + data.data) : '')) : (data.msg || data.message || statusText || JSON.stringify(e))
     }
 
     Toast.clear()
@@ -44,7 +46,7 @@ const responseReject = e => {
 
 // 响应结果拦截器
 http.interceptors.response.use(res => {
-    // console.log('-->response', res)
+    console.log('-->response', res)
     if (res.status === 200) {
         if (res.data && res.data.code === 1511200) {
             Toast.clear()
@@ -59,6 +61,16 @@ http.interceptors.response.use(res => {
  * 处理请求地址(mock处理)
  * @param {String} url 请求地址
  */
+const dealUrl = url => {
+    const mockPre = '/mock'
+    // 使用mock数据时，需在请求地址前增加前缀 '/mock' 由基础请求处理掉
+    let baseURL = ''
+    if (!/http/i.test(url) && url.indexOf(mockPre) === 0) {
+        url = url.replace(mockPre, '')
+        baseURL = process.env.VUE_APP_MOCKDOMAIN || ''
+    }
+    return { realUrl: url, baseURL }
+}
 
 /**
  * HttpGet请求
@@ -67,8 +79,9 @@ http.interceptors.response.use(res => {
  */
 const GET = (url, params = {}) => {
     let config = { params }
-    config.baseURL = url
-    return http.get(url, config)
+    let { realUrl, baseURL } = dealUrl(url)
+    if (baseURL) config.baseURL = baseURL
+    return http.get(realUrl, config)
 }
 
 /**
@@ -78,7 +91,8 @@ const GET = (url, params = {}) => {
  */
 const POST = (url, params = {}, loading = 1) => {
     let config = { loading }
-    config.baseURL = url
+    let { realUrl, baseURL } = dealUrl(url)
+    if (baseURL) config.baseURL = baseURL
     return http.post(realUrl, params, config)
 }
 
