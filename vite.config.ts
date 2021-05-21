@@ -33,6 +33,10 @@ export default defineConfig({
     host: 'localhost',
     port: 15010,
   },
+  // 引入第三方的配置
+  optimizeDeps: {
+    include: ["axios", "element-plus","vue-router",'vant']
+  },
   // 引用全局 scss
   css: {
     preprocessorOptions: {
