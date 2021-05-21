@@ -1,7 +1,9 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <SiderMenu></SiderMenu>
+      <el-scrollbar height="100vh">
+        <SiderMenu></SiderMenu>
+      </el-scrollbar>
     </el-aside>
     <el-container>
       <el-header>
@@ -36,6 +38,7 @@ export default defineComponent({
   color: #333;
   text-align: center;
   line-height: 200px;
+  // min-height: 100vh;
 }
 
 .el-main {

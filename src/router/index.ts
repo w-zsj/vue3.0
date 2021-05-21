@@ -21,9 +21,7 @@ const router = createRouter({
 // 判断是否已经 添加过路由
 function hasNecessaryRoute(to: any) {
     let getroutes = router.getRoutes(), flag = false
-    flag = getroutes.some(i => (i.path == to.fullPath))
-    return flag
-
+    return (flag = getroutes.some(i => (i.path == to.fullPath)))
 }
 // 添加路由
 function setRouter(router: any) {
@@ -33,8 +31,10 @@ function setRouter(router: any) {
         return router
     })
 }
-
+// 在导航守卫中添加路由
 router.beforeEach((to: any) => {
+    // 1、 判断是否登录
+    // 2、已登录
     if (!hasNecessaryRoute(to)) {
         setRouter(router)
         return to.fullPath

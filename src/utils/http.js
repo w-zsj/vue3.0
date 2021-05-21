@@ -82,6 +82,4 @@ const POST = (url, params = {}, loading = 1) => {
     return http.post(realUrl, params, config)
 }
 
-export {
-    GET, POST
-}
+export { GET, POST }
