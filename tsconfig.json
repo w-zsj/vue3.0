@@ -10,6 +10,9 @@
     "esModuleInterop": true,
     "lib": ["esnext","DOM"],
     "types": ["vite/client"],
+    "paths": {
+      "/@/*": ["./src/*"]
+    },
     "typeRoots": ["src/typing"],
     "strictNullChecks": true
   },

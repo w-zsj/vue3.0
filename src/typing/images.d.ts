@@ -1,3 +1,6 @@
+declare module '*.vue' { }
+declare module '*.js'
+declare module '*.json';
 declare module '*.svg'
 declare module '*.png'
 declare module '*.jpg'
