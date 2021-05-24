@@ -9,13 +9,14 @@ const http = axios.create({
     timeout: 8000
 })
 // 请求拦截器
-http.interceptors.request.use(conf => {
+http.interceptors.request.use((conf: any) => {
     //   Bus.$emit('Loading', true)
-    if (conf.loading)
+    if (conf?.loading) {
         Toast.loading({
             message: '加载中...',
             forbidClick: true,
         });
+    }
     conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '', version }
     return conf
 }, err => {
@@ -28,7 +29,7 @@ http.interceptors.request.use(conf => {
  * 响应结果异常处理
  * @param {Object} e 异常响应结果的响应体
  */
-const responseReject = e => {
+const responseReject = (e: any) => {
     e = e.response || e
     let { data, status } = e
     let res = { code: 0, msg: '网络异常' }
@@ -65,8 +66,8 @@ http.interceptors.response.use(res => {
  * @param {String} url 请求地址
  * @param {Object?} params 请求参数
  */
-const GET = (url, params = {}) => {
-    let config = { params }
+const GET = (url: string, params = {}) => {
+    let config: any = { params }
     config.baseURL = url
     return http.get(url, config)
 }
@@ -76,10 +77,10 @@ const GET = (url, params = {}) => {
  * @param {String} url 请求地址
  * @param {Object?} params 请求参数
  */
-const POST = (url, params = {}, loading = 1) => {
-    let config = { loading }
+const POST = (url: string, params = {}, loading = 1) => {
+    let config: any = { loading }
     config.baseURL = url
-    return http.post(realUrl, params, config)
+    return http.post(url, params, config)
 }
 
 export { GET, POST }

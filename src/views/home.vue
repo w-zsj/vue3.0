@@ -29,7 +29,7 @@ export default defineComponent({
     const refData:any = toRefs(d);
     console.log(`refData`, refData);
     return {
-      d
+      d,
     };
   },
 });

@@ -12,7 +12,6 @@ export default defineConfig({
         esModule: true,
         ensureStyleFile: true,
         resolveStyle: (name) => {
-          console.log(`name--->>`, name)
           name = name.slice(3)
           return `element-plus/packages/theme-chalk/src/${name}.scss`;
         },
@@ -36,7 +35,7 @@ export default defineConfig({
   },
   // 引入第三方的配置
   optimizeDeps: {
-    include: ["axios", "element-plus","vue-router",'vant']
+    include: ["axios", "element-plus", "vue-router", 'vant']
   },
   // 引用全局 scss
   css: {

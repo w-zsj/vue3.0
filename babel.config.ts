@@ -2,6 +2,13 @@
 const prodPlugins: any = process.env.NODE_ENV === 'production' ? ['transform-remove-console'] : []
 module.exports = {
     plugins: [
-        ...prodPlugins
+        ...prodPlugins,
+        [
+            "component",
+            {
+                "libraryName": "element-plus",
+                "styleLibraryName": "theme-chalk"
+            }
+        ]
     ]
 }

@@ -1,5 +1,6 @@
+import { RouteRecordRaw } from 'vue-router'
 // 基础路由
-const baseRouter = [
+const baseRouter: Array<RouteRecordRaw> = [
     {
         path: '/login',
         name: 'Login',
