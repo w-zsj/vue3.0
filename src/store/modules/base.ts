@@ -20,16 +20,51 @@ const actions = {
         commit('setRoles', [
             {
                 path: '/',
-                redirect: '/home',
-                name: 'Layout',
+                name: 'Home',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '布局' },
+                meta: { title: '首页' },
                 children: [
                     {
                         path: '/home',
-                        name: 'home',
+                        name: 'index',
+                        redirect: '/home/stree',
                         component: () => import('@/views/home.vue'),
-                        meta: { title: '首页' }
+                        meta: { title: '二级' },
+                        children: [
+                            {
+                                path: '/home/stree',
+                                name: 'stree',
+                                component: () => import('@/views/login.vue'),
+                                meta: { title: '三级' }
+                            },
+                            {
+                                path: '/home/four',
+                                name: 'four',
+                                component: () => import('@/views/login.vue'),
+                                meta: { title: '三级' }
+                            },
+                        ]
+                    },
+                    {
+                        path: '/home/list',
+                        name: 'test12',
+                        component: () => import('@/views/login.vue'),
+                        meta: { title: '订单' }
+                    },
+                ]
+            },
+            {
+                path: '/order',
+                redirect: '/order/list',
+                name: 'Order',
+                component: () => import('@/Layout/BasicLayout.vue'),
+                meta: { title: '详情' },
+                children: [
+                    {
+                        path: '/order/list',
+                        name: 'test',
+                        component: () => import('@/views/login.vue'),
+                        meta: { title: '详情' }
                     },
                 ]
             }
@@ -42,6 +77,7 @@ const mutations = {
     setRoles(state: any, payload: any) {
         state.addRoutes = payload
         state.routes = [...baseRouter, ...payload]
+        // console.log(`state.routes`, state.routes)
     },
     setPermissions(state: any, payload: any) {
         state.permissions = payload

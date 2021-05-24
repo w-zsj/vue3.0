@@ -2,7 +2,7 @@
   <el-container>
     <el-aside width="200px">
       <el-scrollbar height="100vh">
-        <SiderMenu></SiderMenu>
+        <SiderMenu :addRoutes='addRoutes'></SiderMenu>
       </el-scrollbar>
     </el-aside>
     <el-container>
@@ -18,12 +18,19 @@
   </el-container>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import Breadcrumb from "./Breadcrumb.vue";
 import SiderMenu from "./SiderMenu.vue";
+import { useStore } from "vuex";
 export default defineComponent({
   components: { Breadcrumb, SiderMenu },
-  setup() {},
+  setup() {
+    const store = useStore();
+    let addRoutes = computed(() => store.state.base.addRoutes);
+    return {
+      addRoutes,
+    };
+  },
 });
 </script>
 <style scoped lang='scss'>
@@ -36,11 +43,8 @@ export default defineComponent({
 }
 
 .el-aside {
-  background-color: #fff;
-  color: #333;
+  background-color: #545c64;
   text-align: center;
-  // line-height: 200px;
-  // min-height: 100vh;
 }
 .el-main {
   background-color: #e9eef3;

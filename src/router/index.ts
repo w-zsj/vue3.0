@@ -24,7 +24,10 @@ function hasNecessaryRoute(to: any) {
 function setRouter(router: any) {
     store.dispatch({ type: "base/getMenuList" }).then(() => {
         let routers = store.getters['base/addRoutes']
-        if (routers?.length) routers.forEach((item: any) => router.addRoute(item));
+        if (routers?.length) routers.forEach((item: any) => {
+            // console.log(`to.fullPath`, routers)
+            router.addRoute(item)
+        });
         return router
     })
 }

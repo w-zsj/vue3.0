@@ -1,59 +1,55 @@
 <template>
   <div>
-    <el-menu :default-openeds="['1']">
-      <el-submenu index="1">
-        <template #title><i class="el-icon-message"></i>导航一</template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template #title>选项4</template>
-          <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+    <el-menu :defaultActive='defaultActive' :default-openeds="defaultOpeneds" router @open='open' @select="open" :uniqueOpened="true" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      <template v-for="(item,idx) in addRoutes" :key='idx'>
+        <el-submenu v-if="item.hasOwnProperty('children')&&item.children.length>0" :key="item.path" :index="item.path">
+          <template #title style="padding-left:10px">
+            <i class="el-icon-menu"></i>
+            <span>{{ item.meta.title}}</span>
+          </template>
+          <!--  如果有子级数据使用递归组件 -->
+          <SubMenu :addRoutes="item.children"></SubMenu>
         </el-submenu>
-      </el-submenu>
-      <el-submenu index="2">
-        <template #title><i class="el-icon-menu"></i>导航二</template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="2-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="2-4">
-          <template #title>选项4</template>
-          <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="3">
-        <template #title><i class="el-icon-setting"></i>导航三</template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="3-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="3-4">
-          <template #title>选项4</template>
-          <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
+        <el-menu-item :index="item.path" v-else>{{item.meta.title}}</el-menu-item>
+      </template>
     </el-menu>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-
+import { defineComponent, reactive, ref, computed } from "vue";
+import router from "../router";
+import { useStore } from "vuex";
 export default defineComponent({
-  setup() {},
+  props: ["addRoutes"],
+  name: "SubMenu",
+  setup(props) {
+    let defaultOpeneds: any[] = reactive([]);
+
+    let defaultActive = ref("");
+    defaultActive.value = router.currentRoute.value.path;
+
+    const store = useStore();
+    let _router: any = computed(() => store.state.base.routes);
+
+    getOpeneds(_router.value, []);
+    let open = (key: any) => {
+      defaultActive.value = key;
+      defaultOpeneds = [];
+      getOpeneds(_router.value, []);
+    };
+
+    function getOpeneds(router: any[], parent: string[]) {
+      router.forEach((item) => {
+        if (item.path == defaultActive.value) {
+          defaultOpeneds = [...parent, item.path];
+        } else if (item?.children?.length) {
+          getOpeneds(item.children, [...parent, item.path]);
+        }
+      });
+    }
+
+    return { open, defaultActive, defaultOpeneds };
+  },
 });
 </script>
 <style lang="scss" scoped>
