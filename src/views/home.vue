@@ -1,24 +1,38 @@
 <template>
   <div class="home">
-    <el-button type='primary'>首页</el-button>
+    <el-table :data="d.tableData">
+      <el-table-column prop="date" label="日期" width="140">
+      </el-table-column>
+      <el-table-column prop="name" label="姓名" width="120">
+      </el-table-column>
+      <el-table-column prop="address" label="地址">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, getCurrentInstance } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
+import { defineComponent, getCurrentInstance, reactive, toRefs } from "vue";
 export default defineComponent({
   name: "Index",
   setup(props) {
     const _ = getCurrentInstance() as any;
-    const router = useRouter();
-    const route = useRoute();
-    const store = useStore();
-    return {};
+    let d: any = reactive({
+      tableData: [],
+    });
+    const item = {
+      date: "2016-05-02",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1518 弄",
+    };
+
+    d.tableData = Array(20).fill(item);
+    const refData:any = toRefs(d);
+    console.log(`refData`, refData);
+    return {
+      d
+    };
   },
 });
 </script>
 <style scoped lang='scss'>
-.home {
-}
 </style>

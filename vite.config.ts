@@ -12,6 +12,7 @@ export default defineConfig({
         esModule: true,
         ensureStyleFile: true,
         resolveStyle: (name) => {
+          console.log(`name--->>`, name)
           name = name.slice(3)
           return `element-plus/packages/theme-chalk/src/${name}.scss`;
         },

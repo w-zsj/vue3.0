@@ -10,11 +10,8 @@ const router = createRouter({
         ...initRouters
     ],
     scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition
-        } else {
-            return { top: 0 }
-        }
+        if (savedPosition) return savedPosition
+        else return { top: 0 }
     }
 })
 
@@ -39,6 +36,7 @@ router.beforeEach((to: any) => {
         setRouter(router)
         return to.fullPath
     }
+    // 设置页面标题
     if (to.meta && to.meta.title) {
         (window as any).document.title = to.meta.title
     }

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import cops from './utils/ElComponent'
+import 'element-plus/lib/theme-chalk/index.css';
 import router from "./router"
 import store from './store/index'
 import lang from 'element-plus/lib/locale/lang/zh-cn'
@@ -10,6 +11,7 @@ locale.use(lang)
 
 const app = createApp(App, { title: "app" })
 cops(app)
+
 app
     .use(router)
     .use(store)

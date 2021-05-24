@@ -10,7 +10,9 @@
         <Breadcrumb />
       </el-header>
       <el-main>
-        <router-view></router-view>
+        <el-scrollbar height="80vh">
+          <router-view></router-view>
+        </el-scrollbar>
       </el-main>
     </el-container>
   </el-container>
@@ -34,18 +36,16 @@ export default defineComponent({
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #fff;
   color: #333;
   text-align: center;
-  line-height: 200px;
+  // line-height: 200px;
   // min-height: 100vh;
 }
-
 .el-main {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
 }
 
 body > .el-container {

@@ -29,7 +29,8 @@ import {
     ElTooltip,
     ElTree,
     ElUpload,
-    ElScrollbar
+    ElScrollbar,
+    ElIcon,
 } from 'element-plus';
 
 const components = [
@@ -60,7 +61,8 @@ const components = [
     ElTooltip,
     ElTree,
     ElUpload,
-    ElScrollbar
+    ElScrollbar,
+    ElIcon,
 ]
 
 
