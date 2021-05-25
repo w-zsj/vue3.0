@@ -4,16 +4,12 @@ import baseRouter from '../../router/initRouters'
 const state = {
     addRoutes: [],
     staticRoutes: [],
-    permissions: [],
-    isFreshExposure: false
 }
 // getters 只会依赖 state 中的成员去更新
 const getters = {
     // 尖头函数
     addRoutes: (state: any) => state.addRoutes,
     routes: (state: any) => state.routes,
-    permissions: (state: any) => state.permissions,
-    addRouisFreshExposuretes: (state: any) => state.isFreshExposure
 }
 const actions = {
     getMenuList({ commit, state }: any) {
@@ -77,7 +73,7 @@ const actions = {
                 redirect: '/order/list',
                 name: 'Order',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '详情',icon: 'order' },
+                meta: { title: '详情', icon: 'order' },
                 children: [
                     {
                         path: '/order/list',
@@ -89,23 +85,20 @@ const actions = {
                 ]
             }
         ])
+
+        // 存储所有按钮权限码
+        let setPermissions = ['home:search', 'home:btn']
+        localStorage.setItem('permissions', setPermissions.join(','))
     }
 }
 // 修改状态
 const mutations = {
-    // Vuex提供了commit方法来修改状态 使用时 $store.commit('handleUserName',name)
     setRouters(state: any, payload: any) {
         state.addRoutes = payload
         state.staticRoutes = [...baseRouter, ...payload]
-    },
-    setPermissions(state: any, payload: any) {
-        state.permissions = payload
-    },
-    setFreshExposure(state: any, payload: any) {
-        state.isFreshExposure = payload
+
     },
 }
-
 // 使用VUEx 存储
 export default {
     namespaced: true,

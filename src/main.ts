@@ -4,13 +4,15 @@ import setupElComponent from './utils/ElComponent'
 import router from "./router"
 import store from './store/index'
 import svgIcon from './components/svgIcon.vue'
-
+import hasPermission from './directive/hasPermission'
 const app = createApp(App, { title: "app" })
 setupElComponent(app)
 app
     .use(router)
     .use(store)
 app.component('svg-icon', svgIcon)
+
+app.directive('hasPermission', hasPermission)
 app.config.globalProperties.$http = 'test';
 
 router.isReady().then(() => {
