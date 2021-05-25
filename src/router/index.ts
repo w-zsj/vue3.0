@@ -18,19 +18,26 @@ const router = createRouter({
 // 判断是否已经 添加过路由
 function hasNecessaryRoute(to: any) {
     let getroutes = router.getRoutes(), flag = false
-    return (flag = getroutes.some(i => (i.path == to.fullPath)))
+    // 判断404 页面 router.hasRoute('Home')路由是否已经添加 防止 循环添加
+    let judPathKey = getroutes.findIndex(i => i.path == to.path)
+    if (router.hasRoute('Home') && judPathKey == -1) flag = true
+    // flag=true  进入 404 页面
+
+    return flag || router.hasRoute('Home')
+
+    // flag = getroutes.some(i => (i.path == to.fullPath))
 }
 // 添加路由
 function setRouter(router: any) {
-    store.dispatch({ type: "base/getMenuList" }).then(() => {
+    store.dispatch({ type: "base/getMenuList" }).then((r) => {
         let routers = store.getters['base/addRoutes']
         if (routers?.length) routers.forEach((item: any) => {
-            // console.log(`to.fullPath`, routers)
             router.addRoute(item)
         });
         return router
     })
 }
+
 // 在导航守卫中添加路由
 router.beforeEach((to: any) => {
     // 1、 判断是否登录

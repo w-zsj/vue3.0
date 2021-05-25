@@ -26,7 +26,35 @@ export default defineComponent({
   components: { Breadcrumb, SiderMenu },
   setup() {
     const store = useStore();
-    let addRoutes = computed(() => store.state.base.addRoutes);
+    const addRoutes = computed(() => {
+      let router = store.state.base.addRoutes;
+      function delHiddenRouter(r: any[]) {
+        let newRouter: any = [];
+        if (r?.length)
+          r.forEach((item: any) => {
+            if (!item.hidden) {
+              const newItem = { ...item };
+              delete newItem.children;
+              if (
+                item.children &&
+                !item.children.every((item: any) => item.hidden)
+              ) {
+                let childrenArr = delHiddenRouter(item.children);
+                if (childrenArr?.length > 0) {
+                  newItem.children = childrenArr;
+                }
+              } else delHiddenRouter(item.children);
+              newRouter.push(newItem);
+            }
+          });
+        // console.log(`newRouter-->>`, newRouter);
+        router = newRouter;
+        return newRouter;
+      }
+      delHiddenRouter(router);
+      return router;
+    });
+
     return {
       addRoutes,
     };
@@ -34,8 +62,7 @@ export default defineComponent({
 });
 </script>
 <style scoped lang='scss'>
-.el-header,
-.el-footer {
+.el-header {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
@@ -44,7 +71,6 @@ export default defineComponent({
 
 .el-aside {
   background-color: #545c64;
-  text-align: center;
 }
 .el-main {
   background-color: #e9eef3;
@@ -56,13 +82,13 @@ body > .el-container {
   margin-bottom: 40px;
 }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
+// .el-container:nth-child(5) .el-aside,
+// .el-container:nth-child(6) .el-aside {
+//   line-height: 260px;
+// }
 
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
+// .el-container:nth-child(7) .el-aside {
+//   line-height: 320px;
+// }
 </style>
 

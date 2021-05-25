@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <el-button @click="goto">跳转</el-button>
     <el-table :data="d.tableData">
       <el-table-column prop="date" label="日期" width="140">
       </el-table-column>
@@ -12,9 +13,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, getCurrentInstance, reactive, toRefs } from "vue";
+import { useRouter, useRoute } from "vue-router";
 export default defineComponent({
   name: "Index",
   setup(props) {
+    const router = useRouter();
     const _ = getCurrentInstance() as any;
     let d: any = reactive({
       tableData: [],
@@ -26,10 +29,14 @@ export default defineComponent({
     };
 
     d.tableData = Array(20).fill(item);
-    const refData:any = toRefs(d);
-    console.log(`refData`, refData);
+
+    const goto = () => {
+      router.push({ path: "/demo" });
+    };
+
     return {
       d,
+      goto,
     };
   },
 });

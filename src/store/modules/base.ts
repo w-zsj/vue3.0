@@ -3,7 +3,7 @@ import baseRouter from '../../router/initRouters'
 // 定义基本属性
 const state = {
     addRoutes: [],
-    routes: [],
+    staticRoutes: [],
     permissions: [],
     isFreshExposure: false
 }
@@ -17,10 +17,11 @@ const getters = {
 }
 const actions = {
     getMenuList({ commit, state }: any) {
-        commit('setRoles', [
+        commit('setRouters', [
             {
                 path: '/',
                 name: 'Home',
+                redirect: '/home',
                 component: () => import('@/Layout/BasicLayout.vue'),
                 meta: { title: '首页' },
                 children: [
@@ -28,7 +29,7 @@ const actions = {
                         path: '/home',
                         name: 'index',
                         redirect: '/home/stree',
-                        component: () => import('@/views/home.vue'),
+                        component: () => import('@/Layout/BlankLayout.vue'),
                         meta: { title: '二级' },
                         children: [
                             {
@@ -40,8 +41,25 @@ const actions = {
                             {
                                 path: '/home/four',
                                 name: 'four',
-                                component: () => import('@/views/login.vue'),
-                                meta: { title: '三级' }
+                                redirect: '/home/four/list',
+                                component: () => import('@/Layout/BlankLayout.vue'),
+                                meta: { title: '四级' },
+                                children: [
+                                    {
+                                        path: '/home/four/list',
+                                        name: 'homeList',
+                                        component: () => import('@/views/home.vue'),
+                                        meta: { title: '四级' },
+                                        hidden: true
+                                    },
+                                    {
+                                        path: '/demo',
+                                        name: 'demo',
+                                        component: () => import('@/views/demo.vue'),
+                                        meta: { title: 'demo' },
+                                        hidden: true
+                                    }
+                                ]
                             },
                         ]
                     },
@@ -49,7 +67,8 @@ const actions = {
                         path: '/home/list',
                         name: 'test12',
                         component: () => import('@/views/login.vue'),
-                        meta: { title: '订单' }
+                        meta: { title: '订单' },
+                        hidden: true,
                     },
                 ]
             },
@@ -64,7 +83,8 @@ const actions = {
                         path: '/order/list',
                         name: 'test',
                         component: () => import('@/views/login.vue'),
-                        meta: { title: '详情' }
+                        meta: { title: '详情' },
+                        hidden:false
                     },
                 ]
             }
@@ -74,10 +94,9 @@ const actions = {
 // 修改状态
 const mutations = {
     // Vuex提供了commit方法来修改状态 使用时 $store.commit('handleUserName',name)
-    setRoles(state: any, payload: any) {
+    setRouters(state: any, payload: any) {
         state.addRoutes = payload
-        state.routes = [...baseRouter, ...payload]
-        // console.log(`state.routes`, state.routes)
+        state.staticRoutes = [...baseRouter, ...payload]
     },
     setPermissions(state: any, payload: any) {
         state.permissions = payload

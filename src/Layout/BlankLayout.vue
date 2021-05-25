@@ -1,7 +1,9 @@
 <template>
-  <keep-alive :include="keepAliveWhiteList">
-    <router-view></router-view>
-  </keep-alive>
+  <router-view v-slot="{ Component }">
+    <keep-alive :include="keepAliveWhiteList">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 <script lang="ts">
 import keepAliveWhiteList from "../router/constant";
