@@ -1,24 +1,101 @@
 <template>
-  <template v-for="(item,idx) in addRoutes" :key="idx+Math.random()">
-    <el-submenu v-if="item?.children?.length>0" :index="item.path">
-      <template #title style="padding-left:10px">
-        <!-- <i class="el-icon-menu"></i> -->
-        <svg-icon :name='item?.meta?.icon||""'></svg-icon>
-        <span style="paddingLeft:4px;">{{ item.meta.title}}</span>
-      </template>
-      <!--  如果有子级数据使用递归组件 -->
-      <SubMenu :addRoutes="item.children"></SubMenu>
-    </el-submenu>
-    <el-menu-item :index="item.path" v-else>
-      <svg-icon :name='item?.meta?.icon||""' v-if="item?.meta?.icon"></svg-icon>
-      {{item.meta.title}}
-    </el-menu-item>
-  </template>
+  <el-menu :defaultActive="defaultActive" :defaultOpeneds='defaultOpeneds' :uniqueOpened="true" @select='select' router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+    <SubMenu :addRoutes='addRoutes' v-if="addRoutes?.length"></SubMenu>
+  </el-menu>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed, reactive, ref } from "vue";
+import { useStore } from "vuex";
+import router from "../router";
+import SubMenu from "./SubMenu.vue";
+
 export default defineComponent({
-  props: ["addRoutes"],
-  name: "SubMenu",
+  components: { SubMenu },
+  setup() {
+    let defaultOpeneds: any[] = reactive([]);
+    let defaultActive = ref("");
+
+    const store = useStore();
+    // 处理菜单数据
+    const addRoutes = computed(() => {
+      let router = store.state.base.addRoutes;
+      function delHiddenRouter(r: any[]) {
+        let newRouter: any = [];
+        if (r?.length)
+          r.forEach((item: any) => {
+            if (!item.hidden) {
+              const newItem = { ...item };
+              delete newItem.children;
+              if (
+                item.children &&
+                !item.children.every((item: any) => item.hidden)
+              ) {
+                let childrenArr = delHiddenRouter(item.children);
+                if (childrenArr?.length > 0) {
+                  newItem.children = childrenArr;
+                }
+              } else delHiddenRouter(item.children);
+              newRouter.push(newItem);
+            }
+          });
+        // console.log(`newRouter-->>`, newRouter);
+        router = newRouter;
+        return newRouter;
+      }
+      delHiddenRouter(router);
+      return router;
+    });
+
+    //↓↓↓↓↓↓↓↓↓↓ 处理openkey
+    defaultActive.value = router.currentRoute.value.path;
+    // 页面刷新 展开默认菜单
+    const _router: any = computed(() => store.state.base.staticRoutes);
+    getOpeneds(_router.value, []);
+
+    const select = (key: any) => {
+      defaultActive.value = key;
+      // getOpeneds(_router.value, []);
+    };
+
+    function getOpeneds(router: any[], parent: string[]) {
+      router.forEach((item) => {
+        if (item.path == defaultActive.value) {
+          if (item.hidden) defaultActive.value = parent[parent.length - 1];
+          defaultOpeneds = [...parent, item.path];
+        } else if (item?.children?.length && item?.path) {
+          getOpeneds(item.children, [...parent, item.path]);
+        }
+      });
+    }
+    //↑↑↑↑↑↑↑↑↑↑ 处理openkey
+    return {
+      addRoutes,
+      select,
+      defaultActive,
+      defaultOpeneds,
+    };
+  },
 });
 </script>
+<style scoped lang='scss'>
+.el-menu {
+  border-right: 0;
+}
+.el-menu :deep(.el-submenu__title) {
+  height: 44px;
+  line-height: 44px;
+}
+:deep(.el-submenu.is-active .el-submenu__title) {
+  background: yellowgreen !important;
+}
+
+:deep(.el-menu--inline .el-submenu.is-active .el-submenu__title) {
+  background: none !important;
+}
+:deep(.el-submenu__title:hover) {
+  background: yellowgreen !important;
+}
+:deep(.el-menu-item:hover) {
+  background: none !important;
+}
+</style>
