@@ -84,7 +84,7 @@ const actions = {
                         name: 'test',
                         component: () => import('@/views/login.vue'),
                         meta: { title: '详情' },
-                        hidden:false
+                        hidden:true
                     },
                 ]
             }
