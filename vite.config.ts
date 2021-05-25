@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
 import path from 'path'
+import { svgBuilder } from './src/icons/svgBuilder';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -19,7 +20,8 @@ export default defineConfig({
           return `element-plus/lib/${name}`;
         },
       }]
-    })
+    }),
+    svgBuilder('./src/icons/svg/')
   ],
   base: '/', // 打包路径
   build: {

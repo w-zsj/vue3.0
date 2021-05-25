@@ -1,3 +1,3 @@
 <template>
-    A
+    详情
 </template>

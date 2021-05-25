@@ -23,7 +23,7 @@ const actions = {
                 name: 'Home',
                 redirect: '/home',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '首页' },
+                meta: { title: '首页', icon: 'home' },
                 children: [
                     {
                         path: '/home',
@@ -77,14 +77,14 @@ const actions = {
                 redirect: '/order/list',
                 name: 'Order',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '详情' },
+                meta: { title: '详情',icon: 'order' },
                 children: [
                     {
                         path: '/order/list',
                         name: 'test',
-                        component: () => import('@/views/login.vue'),
+                        component: () => import('@/views/a.vue'),
                         meta: { title: '详情' },
-                        hidden:true
+                        hidden: true
                     },
                 ]
             }
