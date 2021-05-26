@@ -10,6 +10,7 @@ import keepAliveWhiteList from "../router/constant";
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  name:'BlankLayout',
   setup() {
     return { keepAliveWhiteList };
   },

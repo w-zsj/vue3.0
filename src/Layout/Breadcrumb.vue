@@ -11,6 +11,7 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
+  name:'Breadcrumb',
   setup() {
     let store = useStore();
     let Breadcrumb = computed(() => store.getters["base/breadCrumb"]);

@@ -23,6 +23,7 @@ import Breadcrumb from "./Breadcrumb.vue";
 import SiderMenu from "./SiderMenu.vue";
 
 export default defineComponent({
+  name: "BasicLayout",
   components: { Breadcrumb, SiderMenu },
   setup() {},
 });

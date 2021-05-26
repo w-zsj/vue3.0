@@ -20,7 +20,7 @@
     "skipLibCheck": true,//跳过声明文件的类型检查。
     
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/api"],
   "exclude": [
     "node_modules"
     ]

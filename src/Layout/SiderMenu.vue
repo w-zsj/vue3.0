@@ -9,6 +9,7 @@ import SubMenu from "./SubMenu.vue";
 import handleRouter from "@/plugins/handleRouter";
 import handleMenuOpenKey from "@/plugins/handleMenuOpenKey";
 export default defineComponent({
+    name:'SiderMenu',
   components: { SubMenu },
   setup() {
     // 处理菜单数据
