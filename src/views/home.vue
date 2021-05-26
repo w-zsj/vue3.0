@@ -31,7 +31,7 @@ export default defineComponent({
     d.tableData = Array(20).fill(item);
 
     const goto = () => {
-      router.push({ path: "/order/list" });
+      router.push({ path: "/demo" });
     };
     return {
       d,

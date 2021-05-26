@@ -54,7 +54,7 @@ export default defineComponent({
 
     const store = useStore();
     let user = computed(() => store.getters["user/userinfo"]);
-    console.log(`router--->>>`, user, store.getters["user/userinfo"]);
+    console.log(`userinfo--->>>`, user, store.getters["user/userinfo"]);
     return {
       ...toRefs(test),
       realTime,

@@ -1,26 +1,26 @@
 <template>
   <el-menu :defaultActive="defaultActive" :defaultOpeneds='defaultOpeneds' :uniqueOpened="true" router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-    <SubMenu :addRoutes='addRoutes' :defaultActive='defaultActive' :firstKey="defaultOpeneds[0]" v-if="addRoutes?.length"></SubMenu>
+    <SubMenu :addRoutes='addRoutes' :defaultActive='defaultActive' :firstKey="firstKey" v-if="addRoutes?.length"></SubMenu>
   </el-menu>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, computed } from "vue";
 import SubMenu from "./SubMenu.vue";
 import handleRouter from "@/plugins/handleRouter";
 import handleMenuOpenKey from "@/plugins/handleMenuOpenKey";
 export default defineComponent({
   components: { SubMenu },
   setup() {
-    const store = useStore();
     // 处理菜单数据
     const addRoutes = handleRouter();
     // 处理openkey
-    const { defaultActive, defaultOpeneds } = handleMenuOpenKey();
+    const { defaultActive, defaultOpeneds }: any = handleMenuOpenKey();
+    const firstKey = computed(() => defaultOpeneds.value[0]);
     return {
       addRoutes,
       defaultActive,
       defaultOpeneds,
+      firstKey,
     };
   },
 });

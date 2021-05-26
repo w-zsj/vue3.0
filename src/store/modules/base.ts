@@ -43,13 +43,13 @@ const actions = {
                                 name: 'four',
                                 redirect: '/home/four/list',
                                 component: () => import('@/Layout/BlankLayout.vue'),
-                                meta: { title: '四级' },
+                                meta: { title: '三级' },
                                 children: [
                                     {
                                         path: '/home/four/list',
                                         name: 'homeList',
                                         component: () => import('@/views/home.vue'),
-                                        meta: { title: '四级子菜单' },
+                                        meta: { title: '列表' },
                                         hidden: true
                                     },
                                     {
