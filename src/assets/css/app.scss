@@ -54,3 +54,51 @@ a:hover {
 .line {
    border-bottom: 1px solid #ccc;
 }
+
+.flex,
+[class*=" flex-"],
+[class^="flex-"] {
+   display: flex;
+}
+
+.flex-center {
+   justify-content: center;
+   align-items: center;
+}
+
+.flex-col {
+   flex-direction: column;
+}
+
+.flex-aic {
+   justify-content: flex-start;
+   align-items: center;
+}
+
+.flex-tops {
+   justify-content: flex-start;
+   align-items: end;
+}
+
+.flex-wrap {
+   flex-wrap: wrap;
+}
+.flex-end {
+   justify-content: flex-end !important;
+   align-items: center;
+}
+
+.flex-between {
+   justify-content: space-between;
+   align-items: center;
+}
+
+.flex-around {
+   justify-content: space-around;
+   align-items: center;
+}
+
+.flex-ctr-end {
+   justify-content: center;
+   align-items: flex-end;
+}

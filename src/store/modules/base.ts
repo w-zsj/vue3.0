@@ -3,13 +3,17 @@ import baseRouter from '../../router/initRouters'
 // 定义基本属性
 const state = {
     addRoutes: [],
+    routes: [],
     staticRoutes: [],
+    breadCrumb: []
 }
 // getters 只会依赖 state 中的成员去更新
 const getters = {
     // 尖头函数
     addRoutes: (state: any) => state.addRoutes,
     routes: (state: any) => state.routes,
+    staticRoutes: (state: any) => state.staticRoutes,
+    breadCrumb: (state: any) => state.breadCrumb,
 }
 const actions = {
     getMenuList({ commit, state }: any) {
@@ -19,7 +23,7 @@ const actions = {
                 name: 'Home',
                 redirect: '/home',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '首页', icon: 'home' , actIcon:'acthome'},
+                meta: { title: '首页', icon: 'home', actIcon: 'acthome' },
                 children: [
                     {
                         path: '/home',
@@ -45,7 +49,7 @@ const actions = {
                                         path: '/home/four/list',
                                         name: 'homeList',
                                         component: () => import('@/views/home.vue'),
-                                        meta: { title: '四级' },
+                                        meta: { title: '四级子菜单' },
                                         hidden: true
                                     },
                                     {
@@ -73,7 +77,7 @@ const actions = {
                 redirect: '/order/list',
                 name: 'Order',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '详情', icon: 'order', actIcon:'actorder' },
+                meta: { title: '详情', icon: 'order', actIcon: 'actorder' },
                 children: [
                     {
                         path: '/order/list',
@@ -89,6 +93,9 @@ const actions = {
         // 存储所有按钮权限码
         let setPermissions = ['home:search', 'home:btn']
         localStorage.setItem('permissions', setPermissions.join(','))
+    },
+    BreadCrumbData({ commit }: any, payload: any) {
+        commit('setBreadCrumb', payload.crumb)
     }
 }
 // 修改状态
@@ -98,6 +105,9 @@ const mutations = {
         state.staticRoutes = [...baseRouter, ...payload]
 
     },
+    setBreadCrumb(state: any, payload: any) {
+        state.breadCrumb = payload
+    }
 }
 // 使用VUEx 存储
 export default {

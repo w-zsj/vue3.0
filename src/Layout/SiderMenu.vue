@@ -1,5 +1,5 @@
 <template>
-  <el-menu :defaultActive="defaultActive" :defaultOpeneds='defaultOpeneds' :uniqueOpened="true" @select='select' router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+  <el-menu :defaultActive="defaultActive" :defaultOpeneds='defaultOpeneds' :uniqueOpened="true" router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
     <SubMenu :addRoutes='addRoutes' :defaultActive='defaultActive' :firstKey="defaultOpeneds[0]" v-if="addRoutes?.length"></SubMenu>
   </el-menu>
 </template>
@@ -16,10 +16,9 @@ export default defineComponent({
     // 处理菜单数据
     const addRoutes = handleRouter();
     // 处理openkey
-    const { defaultActive, defaultOpeneds, select } = handleMenuOpenKey();
+    const { defaultActive, defaultOpeneds } = handleMenuOpenKey();
     return {
       addRoutes,
-      select,
       defaultActive,
       defaultOpeneds,
     };

@@ -2,13 +2,15 @@
 
 // 定义基本属性
 const state = {
-    name: 'zsj',
-    age: 12
+    userinfo: {
+        name: 'zsj',
+        age: 12
+    }
 }
 // getters 只会依赖 state 中的成员去更新
 const getters = {
     // 尖头函数
-    user: (state: any) => state.user
+    userinfo: (state: any) => state.userinfo
 }
 const actions = {}
 // 修改状态

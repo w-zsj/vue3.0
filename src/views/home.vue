@@ -31,10 +31,8 @@ export default defineComponent({
     d.tableData = Array(20).fill(item);
 
     const goto = () => {
-      router.push({ path: "/demo" });
+      router.push({ path: "/order/list" });
     };
-    let { tableData } = toRefs(d);
-    console.log(`object`, tableData);
     return {
       d,
       goto,

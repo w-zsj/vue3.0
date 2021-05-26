@@ -3,7 +3,7 @@ import { useStore } from "vuex";
 export default () => {
     const store = useStore();
     const addRoutes: any = computed(() => {
-        let router = store.state.base.addRoutes;
+        let router = store.getters['base/addRoutes']
         function delHiddenRouter(r: any[]) {
             let newRouter: any = [];
             if (r?.length)

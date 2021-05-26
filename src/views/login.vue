@@ -1,6 +1,6 @@
 <template>
   <div class="home">首页
-    <el-button @click="setRouter" v-hasPermission="['home:btn']">默认按钮</el-button>
+    <el-button v-hasPermission="['home:btn']">默认按钮</el-button>
     <Footer msg='' @callback='callback'></Footer>
     <div class="img line">
       <img src='../assets/img/empty.png' />
@@ -53,17 +53,13 @@ export default defineComponent({
     const divs = ref([]);
 
     const store = useStore();
-    let user = computed(() => store.state.user);
-    function setRouter() {
-      store.dispatch({ type: "base/getMenuList" });
-    }
-    console.log("store--", user.value);
+    let user = computed(() => store.getters["user/userinfo"]);
+    console.log(`router--->>>`, user, store.getters["user/userinfo"]);
     return {
       ...toRefs(test),
       realTime,
       handleclick,
       callback,
-      setRouter,
     };
   },
 });

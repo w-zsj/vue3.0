@@ -29,7 +29,7 @@ export default defineComponent({
 </script>
 <style scoped lang='scss'>
 .el-header {
-  background-color: #b3c0d1;
+  background-color: #f9f9f9;
   color: #333;
   text-align: center;
   line-height: 60px;
