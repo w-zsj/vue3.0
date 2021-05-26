@@ -4,7 +4,6 @@ import baseRouter from '@/router/initRouters'
 
 const BasicLayout = () => import('@/Layout/BasicLayout.vue');
 const BlankLayout = () => import('@/Layout/BlankLayout.vue');
-const Home = () => import('@/views/home.vue');
 const loadView = (view: string) => {
     // 路由懒加载
     return () => import(`../../views/${view}.vue`)
@@ -34,9 +33,7 @@ const actions = {
             // 处理菜单
             const routers = filterAsyncRouter(data);
             routers?.length && commit('setRouters', routers)
-
         }
-
     },
     BreadCrumbData({ commit }: any, payload: any) {
         commit('setBreadCrumb', payload.crumb)
@@ -79,7 +76,6 @@ function filterAsyncPermissions(asyncRouterMap: any[]) {
     const filterPermissions = (route: any) => {
         const { permission = '' } = route;
         if (permission) permissions.push(permission);
-        console.log(`permission`, route)
         if (route?.childlist?.length > 0) {
             route.childlist.forEach((it: any) => filterPermissions(it));
         }
@@ -93,7 +89,6 @@ const mutations = {
     setRouters(state: any, payload: any) {
         state.addRoutes = payload
         state.staticRoutes = [...baseRouter, ...payload]
-
     },
     setBreadCrumb(state: any, payload: any) {
         state.breadCrumb = payload

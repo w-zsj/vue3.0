@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <el-button @click="goto">跳转</el-button>
-    <el-table :data="d.tableData">
+    <el-table :data="tableData">
       <el-table-column prop="date" label="日期" width="140">
       </el-table-column>
       <el-table-column prop="name" label="姓名" width="120">
@@ -29,13 +29,12 @@ export default defineComponent({
     };
 
     d.tableData = Array(20).fill(item);
-
     const goto = () => {
       router.push({ path: "/demo" });
     };
     return {
-      d,
       goto,
+      ...toRefs(d),
     };
   },
 });
