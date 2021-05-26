@@ -1,6 +1,6 @@
 <template>
   <div class="home">首页
-    <el-button v-hasPermission="['home:btn']">默认按钮</el-button>
+    <el-button v-hasPermission="['warehouse:store:list:detail']">默认按钮</el-button>
     <Footer msg='' @callback='callback'></Footer>
     <div class="img line">
       <img src='../assets/img/empty.png' />

@@ -28,12 +28,15 @@ const actions = {
     async getMenuList({ commit }: any) {
         let data: any = await getMenus()
         if (data?.length) {
+            // 存储所有按钮权限码
+            let setPermissions = filterAsyncPermissions([...data])
+            localStorage.setItem('permissions', setPermissions.join(','))
+            // 处理菜单
             const routers = filterAsyncRouter(data);
             routers?.length && commit('setRouters', routers)
+
         }
-        // 存储所有按钮权限码
-        let setPermissions = ['home:search', 'home:btn']
-        localStorage.setItem('permissions', setPermissions.join(','))
+
     },
     BreadCrumbData({ commit }: any, payload: any) {
         commit('setBreadCrumb', payload.crumb)
@@ -54,12 +57,35 @@ function filterAsyncRouter(asyncRouterMap: any) {
         } else {
             return false;
         }
+        // type  1：目录，2：页面，3: 隐藏页面，4：按钮
+        // 不需要添加路由管理
+        if (route.type === 4) {
+            return false;
+        }
+        // 不需要在左侧菜单栏显示
+        if (route.type === 3) route.hidden = true;
+
         if (route?.childlist?.length > 0) {
             route.children = filterAsyncRouter(route.childlist)
             delete route.childlist;
         }
         return true
     })
+}
+
+// 遍历后台传来的路由字符串，转换为组件对象,必须要有组件
+function filterAsyncPermissions(asyncRouterMap: any[]) {
+    let permissions: any = [];
+    const filterPermissions = (route: any) => {
+        const { permission = '' } = route;
+        if (permission) permissions.push(permission);
+        console.log(`permission`, route)
+        if (route?.childlist?.length > 0) {
+            route.childlist.forEach((it: any) => filterPermissions(it));
+        }
+    }
+    asyncRouterMap.forEach(it => filterPermissions(it));
+    return permissions;
 }
 
 // 修改状态
