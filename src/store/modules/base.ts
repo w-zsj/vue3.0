@@ -19,7 +19,7 @@ const actions = {
                 name: 'Home',
                 redirect: '/home',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '首页', icon: 'home' },
+                meta: { title: '首页', icon: 'home' , actIcon:'acthome'},
                 children: [
                     {
                         path: '/home',
@@ -73,7 +73,7 @@ const actions = {
                 redirect: '/order/list',
                 name: 'Order',
                 component: () => import('@/Layout/BasicLayout.vue'),
-                meta: { title: '详情', icon: 'order' },
+                meta: { title: '详情', icon: 'order', actIcon:'actorder' },
                 children: [
                     {
                         path: '/order/list',

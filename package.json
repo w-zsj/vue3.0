@@ -4,8 +4,8 @@
   "scripts": {
     "start": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "build-dev": "NODE_ENV=development && npm run build",
-    "build-prd": "NODE_ENV=production && npm run build",
+    "build-dev": "vite build --mode development",
+    "build-prd": "vite build --mode production",
     "serve": "vite preview"
   },
   "dependencies": {

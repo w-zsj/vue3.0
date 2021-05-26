@@ -33,7 +33,8 @@ export default defineComponent({
     const goto = () => {
       router.push({ path: "/demo" });
     };
-
+    let { tableData } = toRefs(d);
+    console.log(`object`, tableData);
     return {
       d,
       goto,

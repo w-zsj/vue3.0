@@ -5,7 +5,7 @@ export default {
         const all_permission = "*:*:*";
         let permissions: any = localStorage.getItem('permissions')
         permissions = permissions.split(',')
-        console.log(`permissions`, value, permissions)
+        // console.log(`permissions`, value, permissions)
         if (value && value instanceof Array && value.length > 0 && permissions) {
             const permissionFlag = value
             const hasPermissions = permissions.some((permission: any) => {

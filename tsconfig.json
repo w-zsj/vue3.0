@@ -10,13 +10,15 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext","DOM"],
-    "types": ["node","vite/client"],
+    "types": ["vite/client"],
     "paths": {
-      "/@/*": ["./src/*"]
+      "@/*": ["src/*"],
+      "comps/*": ["src/components/*"],
     },
     "typeRoots": ["src/typing"],
     "strictNullChecks": true,
     "skipLibCheck": true,//跳过声明文件的类型检查。
+    
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
   "exclude": [

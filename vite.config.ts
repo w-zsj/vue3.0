@@ -2,8 +2,11 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
 import path from 'path'
-import { svgBuilder } from './src/icons/svgBuilder';
+import { svgBuilder } from './src/plugins/svgBuilder';
 // https://vitejs.dev/config/
+// 是否为开发环境
+// const isDev = process.env.NODE_ENV === 'production'
+// console.log(`process`, process.env.NODE_ENV)
 export default defineConfig({
   plugins: [
     vue(),
@@ -25,7 +28,7 @@ export default defineConfig({
   ],
   base: '/', // 打包路径
   build: {
-    // outDir: './dist',
+    outDir: 'dist',
     assetsDir: `assets/[name]`,
     cssCodeSplit: true,
     assetsInlineLimit: 1024 * 5

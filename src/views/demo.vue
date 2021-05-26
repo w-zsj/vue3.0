@@ -1,3 +1,3 @@
 <template>
-    demo
+    隐藏页面
 </template>
