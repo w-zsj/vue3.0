@@ -61,7 +61,6 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
       "comps": path.resolve(__dirname, "src/components"),
     },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
   // 引用全局 scss
   css: {
