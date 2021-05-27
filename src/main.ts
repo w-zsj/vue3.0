@@ -5,6 +5,10 @@ import router from "./router"
 import store from './store/index'
 import svgIcon from './components/svgIcon.vue'
 import hasPermission from './directive/hasPermission'
+import '../mock'
+// import.meta.env.DEV && ()
+
+console.log(`process.env>>>`, import.meta.env.DEV)
 const app = createApp(App, { title: "app" })
 setupElComponent(app)
 app

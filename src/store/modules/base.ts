@@ -1,5 +1,5 @@
 
-import { getMenus } from '@/api/base'
+import { getMenus, testMock } from '@/api/base'
 import baseRouter from '@/router/initRouters'
 
 const BasicLayout = () => import('@/Layout/BasicLayout.vue');
@@ -25,7 +25,9 @@ const getters = {
 }
 const actions = {
     async getMenuList({ commit }: any) {
-        let data: any = await getMenus()
+        // getMenus  testMock
+        let data: any = await testMock()
+        // console.log(`data-->>>`, data)
         if (data?.length) {
             // 存储所有按钮权限码
             let setPermissions = filterAsyncPermissions([...data])

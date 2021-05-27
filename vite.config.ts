@@ -5,10 +5,10 @@ import path from 'path'
 import { svgBuilder } from './src/plugins/svgBuilder';
 // https://vitejs.dev/config/
 // 是否为开发环境
-const isDev = process.env.NODE_ENV === 'production'
-// console.log(`process`, process.env.NODE_ENV)
+const isdev = process.env.NODE_ENV === 'production'
+let Plus = ["axios", "element-plus", "vue-router", 'vant', "mockjs"]
 export default defineConfig({
-  mode: isDev ? 'production' : 'development',
+  mode: isdev ? 'production' : 'development',
   server: {
     open: true,
     host: 'localhost',
@@ -41,7 +41,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          Plus: ["axios", "element-plus", "vue-router", 'vant'],
+          Plus: Plus
         },
         minifyInternalExports: false
       }
@@ -52,6 +52,7 @@ export default defineConfig({
   },
   // 引入第三方的配置
   optimizeDeps: {
+    // include: Plus,//默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。
     exclude: ['node_modules']
   },
   resolve: {
@@ -60,7 +61,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
       "comps": path.resolve(__dirname, "src/components"),
     },
-    extensions: ['.js', '.ts', '.json', '.vue']
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
   // 引用全局 scss
   css: {

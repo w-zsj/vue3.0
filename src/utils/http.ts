@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { Toast } from 'vant';
-const isdev = process.env.NODE_ENV === 'production'
-
+const isdev = import.meta.env.MODE === 'production'
+console.log(`process.env`, import.meta.env)
 // 请求实例
 const http = axios.create({
-    baseURL: process.env.NODE_ENV,
+    baseURL: import.meta.env.BASE_URL,
     timeout: 8000
 })
 // 请求拦截器
@@ -63,7 +63,6 @@ http.interceptors.response.use(res => {
  */
 const GET = (url: string, params = {}) => {
     let config: any = { params }
-    config.baseURL = url
     return http.get(url, config)
 }
 
@@ -74,7 +73,6 @@ const GET = (url: string, params = {}) => {
  */
 const POST = (url: string, params = {}, loading = 1) => {
     let config: any = { loading }
-    config.baseURL = url
     return http.post(url, params, config)
 }
 
