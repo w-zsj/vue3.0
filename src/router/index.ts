@@ -8,36 +8,29 @@ const router = createRouter({
     // 路由地址
     routes: [
         ...initRouters
-    ],
-    scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) return savedPosition
-        else return { top: 0 }
-    }
+    ]
 })
 // 添加路由
-function setRouter(router: any, to: any) {
-    store.dispatch({ type: "base/getMenuList" }).then(() => {
-        let routers = store.getters['base/addRoutes']
-        if (routers?.length) routers.forEach((item: any) => {
-            router.addRoute(item)
-        });
+let routers = store.getters['base/addRoutes'] || []
+function setRouter(to: any) {
+    if (!(routers?.length && routers.every((i: any) => router.hasRoute(i.name)))) {
+        store.dispatch({ type: "base/getMenuList" }).then(() => {
+            routers = store.getters['base/addRoutes']
+            console.log(`@~~~ 只添加一次路由`)
+            routers.forEach((item: any) => router.addRoute(item));
+            router.replace(to.fullPath)
+        })
+    } else {
+        console.warn(`已添加路由`)
+    }
 
-        router.push(to.fullPath)
-    })
 }
-
 // 在导航守卫中添加路由
-router.beforeEach((to: any) => {
-    // console.log(`to`, to)
+router.beforeEach(to => {
     // 1、 判断是否登录
     // 2、已登录
     // 判断是否已经 添加过路由
-    if (!router.hasRoute("Home")) setRouter(router, to)
-
-    // 设置页面标题
-    if (to.meta && to.meta.title) {
-        (window as any).document.title = to.meta.title
-    }
+    setRouter(to)
 })
 
 export default router

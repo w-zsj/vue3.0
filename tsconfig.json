@@ -18,6 +18,7 @@
     "typeRoots": ["src/typing"],
     "strictNullChecks": true,
     "skipLibCheck": true,//跳过声明文件的类型检查。
+    "isolatedModules": true
     
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/api"],
