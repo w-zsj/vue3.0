@@ -5,23 +5,21 @@ const history = createWebHistory()
 const router = createRouter({
     // 指定路由模式
     history: history,
-    // 路由地址
-    routes: [
-        ...initRouters
-    ]
+    // 初始化路由地址
+    routes: [...initRouters]
 })
+//  获取后台返回菜单列表
+let rs = () => store.getters['base/addRoutes'] || []
 // 添加路由
-let routers = store.getters['base/addRoutes'] || []
 function setRouter(to: any) {
-    if (!(routers?.length && routers.every((i: any) => router.hasRoute(i.name)))) {
+    if (!(rs()?.length && rs().every((i: any) => router.hasRoute(i.name)))) {
         store.dispatch({ type: "base/getMenuList" }).then(() => {
-            routers = store.getters['base/addRoutes']
             console.log(`@~~~ 只添加一次路由`)
-            routers.forEach((item: any) => router.addRoute(item));
+            rs().forEach((item: any) => router.addRoute(item));
             router.replace(to.fullPath)
         })
     } else {
-        console.warn(`已添加路由`)
+        // console.warn(`已添加路由`)
     }
 
 }

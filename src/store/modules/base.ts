@@ -30,10 +30,10 @@ const actions = {
         // console.log(`data-->>>`, data)
         if (data?.length) {
             // 存储所有按钮权限码
-            let setPermissions = filterAsyncPermissions([...data])
+            let setPermissions = handelPermissions([...data])
             localStorage.setItem('permissions', setPermissions.join(','))
             // 处理菜单
-            const routers = filterAsyncRouter(data);
+            const routers = handelRouter(data);
             routers?.length && commit('setRouters', routers)
         }
     },
@@ -42,7 +42,7 @@ const actions = {
     }
 }
 // 遍历后台传来的路由字符串，转换为组件对象,必须要有组件
-function filterAsyncRouter(asyncRouterMap: any) {
+function handelRouter(asyncRouterMap: any) {
     return asyncRouterMap.filter((route: any) => {
         // 判断是否有组件名称。
         if (route.component) {
@@ -65,15 +65,15 @@ function filterAsyncRouter(asyncRouterMap: any) {
         if (route.type === 3) route.hidden = true;
 
         if (route?.childlist?.length > 0) {
-            route.children = filterAsyncRouter(route.childlist)
+            route.children = handelRouter(route.childlist)
             delete route.childlist;
         }
         return true
     })
 }
 
-// 遍历后台传来的路由字符串，转换为组件对象,必须要有组件
-function filterAsyncPermissions(asyncRouterMap: any[]) {
+//  处理所有按钮权限码
+function handelPermissions(asyncRouterMap: any[]) {
     let permissions: any = [];
     const filterPermissions = (route: any) => {
         const { permission = '' } = route;

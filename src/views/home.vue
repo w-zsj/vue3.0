@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent, getCurrentInstance, reactive, toRefs } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { testMock } from "@/api/base";
+// import { testMock } from "@/api/base";
 export default defineComponent({
   name: "Index",
   setup(props) {
@@ -31,10 +31,10 @@ export default defineComponent({
 
     d.tableData = Array(20).fill(item);
     const goto = () => {
-      testMock(123).then((res) => {
-        console.log(`mock--->>`, res);
-        router.push({ path: "/demo" });
-      });
+      // testMock(123).then((res) => {
+      // console.log(`mock--->>`, res);
+      router.push({ path: "/demo" });
+      // });
     };
     return {
       goto,
