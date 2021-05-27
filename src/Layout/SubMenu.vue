@@ -1,6 +1,6 @@
 <template>
   <template v-for="(item,idx) in addRoutes" :key="idx+Math.random()">
-    <el-submenu v-if="item?.children?.length>0" :index="item.path">
+    <el-submenu v-if="item?.children?.length>0" :index="item.path" :class="firstKey==item.path?'sub-first':''">
       <template #title style="padding-left:10px">
         <svg-icon :name="(firstKey==item.path&&item?.meta?.actIcon || item?.meta?.icon||'') "></svg-icon>
         <span style="paddingLeft:4px;">{{ item.meta.title}}</span>

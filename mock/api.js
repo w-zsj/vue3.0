@@ -71,7 +71,7 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                     "meta": {
                         "title": "订单"
                     },
-                    "hidden": true
+                    "hidden": false
                 }
             ]
         },
