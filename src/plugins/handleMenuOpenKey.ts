@@ -27,6 +27,7 @@ export default () => {
                 if (item.hidden) openKeys.defaultActive = parent[parent.length - 1];
                 openKeys.defaultOpeneds = [...parent, item.path];
                 // 处理面包屑
+                crumb = crumb.filter(i => i.title)
                 store.dispatch({ type: 'base/BreadCrumbData', crumb })
                 console.log(`defaultOpeneds--->>`, openKeys.defaultActive, openKeys.defaultOpeneds);
             } else if (item?.children?.length && item?.path) {

@@ -36,12 +36,12 @@ export default defineComponent({
   line-height: 44px;
 }
 
-:deep(.el-submenu.is-opened .el-submenu__title) {
+:deep(.el-submenu.is-opened.is-active .el-submenu__title) {
   background: #38ce8a !important;
 }
 
 :deep(.el-menu--inline .el-submenu.is-opened .el-submenu__title),
-:deep(.el-submenu .el-menu--inline .el-submenu__title) {
+:deep(.el-submenu.is-opened.is-active .el-menu--inline .el-submenu__title) {
   background: none !important;
 }
 :deep(.is-active.one-menu) {

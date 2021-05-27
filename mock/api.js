@@ -36,7 +36,7 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                             "redirect": "/home/four/list",
                             "component": "BlankLayout",
                             "meta": {
-                                "title": "三级"
+                                "title": "库存列表"
                             },
                             "childlist": [
                                 {
@@ -44,7 +44,7 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                                     "name": "homeList",
                                     "component": "home",
                                     "meta": {
-                                        "title": "列表"
+                                        "title": ""
                                     },
                                     "hidden": true
                                 },
@@ -53,7 +53,7 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                                     "name": "demo",
                                     "component": "demo",
                                     "meta": {
-                                        "title": "demo"
+                                        "title": "库存详情"
                                     },
                                     "hidden": true
                                 },
