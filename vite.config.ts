@@ -1,15 +1,15 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
-import path from 'path'
+import path from 'path';
 import { svgBuilder } from './src/plugins/svgBuilder';
 // https://vitejs.dev/config/
-// 是否为开发环境
-const isdev = process.env.NODE_ENV === 'production'
+// 是否为开发环境 "mockjs"
+const isProd = process.env.NODE_ENV === 'production'
 console.log(`process`, process.env.NODE_ENV)
-let Plus = ["axios", "element-plus", "vue-router", 'vant', "mockjs"]
+let Plus = ["axios", "element-plus", "vue-router"]
 export default defineConfig({
-  mode: isdev ? 'production' : 'development',
+  mode: isProd ? 'production' : 'development',
   server: {
     open: true,
     host: 'localhost',
@@ -44,16 +44,17 @@ export default defineConfig({
         manualChunks: {
           Plus: Plus
         },
-        minifyInternalExports: false
+        minifyInternalExports: false,
       }
     },
     sourcemap: false,
     manifest: false,
+
     chunkSizeWarningLimit: 500, //chunk 大小警告的限制（以 kbs 为单位）。默认500
   },
   // 引入第三方的配置
   optimizeDeps: {
-    // include: Plus,//默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。
+    include: Plus,//默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。
     exclude: ['node_modules']
   },
   resolve: {

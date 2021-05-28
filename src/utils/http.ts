@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { Toast } from 'vant';
 const isdev = import.meta.env.MODE === 'production'
 console.log(`process.env`, import.meta.env)
+import { ElLoading } from 'element-plus';
+let loadingInstance: any
 // 请求实例
 const http = axios.create({
     baseURL: import.meta.env.BASE_URL,
@@ -10,16 +11,13 @@ const http = axios.create({
 // 请求拦截器
 http.interceptors.request.use((conf: any) => {
     if (conf?.loading) {
-        Toast.loading({
-            message: '加载中...',
-            forbidClick: true,
-        });
+        loadingInstance = ElLoading.service({ text: '加载中...' });
     }
     conf.headers = { ...conf.headers, 'Content-Type': 'application/json', Authorization: '' }
     return conf
 }, err => {
     console.log('--->request error', err)
-    Toast.clear()
+    loadingInstance && loadingInstance.close()
     return Promise.reject(err)
 })
 
@@ -37,14 +35,14 @@ const responseReject = (e: any) => {
         res.msg = data.msg || data.message
     }
 
-    Toast.clear()
+    loadingInstance && loadingInstance.close()
     return Promise.reject(res)
 }
 
 // 响应结果拦截器
 http.interceptors.response.use(res => {
     if (res.status === 200) {
-        Toast.clear()
+        loadingInstance && loadingInstance.close()
         let data = res.data
         return data
     }

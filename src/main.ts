@@ -1,14 +1,20 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+// import VConsole from 'vconsole';
 import setupElComponent from './utils/ElComponent'
 import router from "./router"
 import store from './store/index'
 import svgIcon from './components/svgIcon.vue'
 import hasPermission from './directive/hasPermission'
-import '../mock'
-// import.meta.env.DEV && ()
+// import '../mock'
 
 console.log(`process.env>>>`, import.meta.env.DEV)
+
+// const vConsole = new VConsole();
+// if (!import.meta.env.DEV) {
+//     vConsole.destroy();
+// }
+
 const app = createApp(App, { title: "app" })
 setupElComponent(app)
 app

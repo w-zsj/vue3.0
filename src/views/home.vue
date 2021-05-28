@@ -33,7 +33,8 @@ export default defineComponent({
     const goto = () => {
       // testMock(123).then((res) => {
       // console.log(`mock--->>`, res);
-      router.push({ path: "/demo" });
+      // router.push({ path: "/demo" });
+      window.location.href='http://localhost:15010/home/four/list#14'
       // });
     };
     return {
