@@ -34,7 +34,7 @@ export default defineComponent({
       // testMock(123).then((res) => {
       // console.log(`mock--->>`, res);
       // router.push({ path: "/demo" });
-      window.location.href='http://localhost:15010/home/four/list#14'
+      window.location.href='http://localhost:15010/home/four/list?c=14'
       // });
     };
     return {

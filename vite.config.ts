@@ -48,7 +48,11 @@ export default defineConfig({
           Plus: Plus
         },
         minifyInternalExports: false,
-      }
+      },
+      watch: {
+        exclude: 'node_modules/**',
+        include: 'src/**'
+      },
     },
     sourcemap: false,
     manifest: false,
@@ -57,7 +61,7 @@ export default defineConfig({
   },
   // 引入第三方的配置
   optimizeDeps: {
-    include: Plus,//默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。
+    // include: Plus,//默认情况下，不在 node_modules 中的，链接的包不会被预构建。使用此选项可强制预构建链接的包。
     exclude: ['node_modules']
   },
   resolve: {
