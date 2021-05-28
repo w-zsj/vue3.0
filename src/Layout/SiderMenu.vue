@@ -15,7 +15,7 @@ export default defineComponent({
     // 处理菜单数据
     const addRoutes = handleRouter();
     // 处理openkey
-    const { defaultActive, defaultOpeneds }: any = handleMenuOpenKey();
+    const { defaultActive, defaultOpeneds } = handleMenuOpenKey();
     const firstKey = computed(() => defaultOpeneds.value[0]);
     return {
       addRoutes,

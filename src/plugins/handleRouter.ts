@@ -3,7 +3,7 @@ import { useStore } from "vuex";
 import { MenuRouter } from '@/interface'
 export default () => {
     const store = useStore();
-    const addRoutes: any = computed(() => {
+    const addRoutes = computed(() => {
         let router = store.getters['base/addRoutes']
         function delHiddenRouter(r: Array<MenuRouter<string>>) {
             let newRouter: Array<MenuRouter<string>> = [];

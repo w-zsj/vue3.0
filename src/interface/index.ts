@@ -6,6 +6,7 @@ export interface MenuRouter<T> {
     meta: any
     childlist: Array<any>
     hidden?: boolean
+    type: number
     [propName: string]: any
 }
 
