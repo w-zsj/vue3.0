@@ -33,14 +33,17 @@ export default defineConfig({
     }),
     svgBuilder('./src/icons/svg/')
   ],
-  base: '/', // 打包路径
+  base: './', // 打包路径
   build: {
     outDir: 'dist',
-    assetsDir: `assets/[name]`,
+    assetsDir: `assets/`,
     cssCodeSplit: true,
     assetsInlineLimit: 1024 * 5,
     rollupOptions: {
       output: {
+        assetFileNames: 'css/[name]_[hash].css',
+        chunkFileNames: 'js/[name]_[hash].js',
+        entryFileNames: 'js/[name]_[hash].js',
         manualChunks: {
           Plus: Plus
         },
