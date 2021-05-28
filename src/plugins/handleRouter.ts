@@ -5,22 +5,20 @@ export default () => {
     const store = useStore();
     const addRoutes = computed(() => {
         let router = store.getters['base/addRoutes']
-        function delHiddenRouter(r: Array<MenuRouter<string>>) {
-            let newRouter: Array<MenuRouter<string>> = [];
+        function delHiddenRouter<T>(r: Array<T>) {
+            let newRouter: Array<T> = [];
             if (r?.length)
-                r.forEach((item: MenuRouter<string>) => {
+                r.forEach((item: any) => {
                     if (!item.hidden) {
-                        const newItem = { ...item };
+                        let newItem = { ...item };
                         delete newItem.children;
                         if (
                             item.children &&
-                            !item.children.every((item: MenuRouter<string>) => item.hidden)
+                            !item.children.every((item: any) => item.hidden)
                         ) {
-                            let childrenArr = delHiddenRouter(item.children);
-                            if (childrenArr?.length > 0) {
-                                newItem.children = childrenArr;
-                            }
-                        } else delHiddenRouter(item.children);
+                            let childrenArr = delHiddenRouter<T>(item.children);
+                            if (childrenArr?.length > 0) newItem.children = childrenArr;
+                        } else delHiddenRouter<T>(item.children);
                         newRouter.push(newItem);
                     }
                 });
@@ -28,7 +26,7 @@ export default () => {
             router = newRouter;
             return newRouter;
         }
-        delHiddenRouter(router);
+        delHiddenRouter<MenuRouter<string>>(router);
         return router;
     });
     return addRoutes

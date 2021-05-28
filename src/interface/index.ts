@@ -4,7 +4,7 @@ export interface MenuRouter<T> {
     redirect: T
     component: T
     meta: any
-    childlist: Array<any>
+    childlist?: Array<any>
     hidden?: boolean
     type: number
     [propName: string]: any

@@ -23,7 +23,6 @@ function setRouter(to: any) {
     } else {
         // console.warn(`已添加路由`)
     }
-
 }
 // 在导航守卫中添加路由
 router.beforeEach(to => {
