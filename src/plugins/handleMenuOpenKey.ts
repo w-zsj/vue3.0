@@ -3,20 +3,15 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import router from "../router";
 import { MenuRouter, Breadcrumb } from '@/interface'
-interface openkeys {
+interface openKeys {
     defaultOpeneds: string[]
     defaultActive: string
 }
 export default () => {
-    let openKeys: openkeys = reactive({
+    let openKeys: openKeys = reactive({
         defaultOpeneds: [],
         defaultActive: ''
     })
-
-    const store = useStore();
-    // 页面刷新 展开默认菜单
-    const _router: MenuRouter<string>[] = store.getters['base/staticRoutes']
-    getOpeneds(_router);
 
     // 路由跳转时 更新菜单
     const route = useRoute()
@@ -26,8 +21,11 @@ export default () => {
         getOpeneds(_router);
     })
 
+    const store = useStore();
     openKeys.defaultActive = router.currentRoute.value.path;
-
+    // 页面刷新 展开默认菜单
+    const _router: MenuRouter<string>[] = store.getters['base/staticRoutes']
+    getOpeneds(_router);
 
     function getOpeneds(router: MenuRouter<string>[], parent: string[] = [], Breadcrumb: Array<Breadcrumb> = []) {
         router.forEach((item) => {
