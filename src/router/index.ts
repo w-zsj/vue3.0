@@ -1,6 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import initRouters from './initRouters'
 import store from '../store/index'
+
+import { MenuRouter } from '@/interface'
 const history = createWebHistory()
 const router = createRouter({
     // 指定路由模式
@@ -12,7 +14,7 @@ const router = createRouter({
 let rs = () => store.getters['base/addRoutes'] || []
 // 添加路由
 function setRouter(to: any) {
-    if (!(rs()?.length && rs().every((i: any) => router.hasRoute(i.name)))) {
+    if (!(rs()?.length && rs().every((i: MenuRouter<string>) => router.hasRoute(i.name)))) {
         store.dispatch({ type: "base/getMenuList" }).then(() => {
             console.log(`@~~~ 只添加一次路由`)
             rs().forEach((item: any) => router.addRoute(item));

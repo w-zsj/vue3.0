@@ -1,19 +1,20 @@
-import { toRefs, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
+import { MenuRouter } from '@/interface'
 export default () => {
     const store = useStore();
     const addRoutes: any = computed(() => {
         let router = store.getters['base/addRoutes']
-        function delHiddenRouter(r: any[]) {
-            let newRouter: any = [];
+        function delHiddenRouter(r: Array<MenuRouter<string>>) {
+            let newRouter: Array<MenuRouter<string>> = [];
             if (r?.length)
-                r.forEach((item: any) => {
+                r.forEach((item: MenuRouter<string>) => {
                     if (!item.hidden) {
                         const newItem = { ...item };
                         delete newItem.children;
                         if (
                             item.children &&
-                            !item.children.every((item: any) => item.hidden)
+                            !item.children.every((item: MenuRouter<string>) => item.hidden)
                         ) {
                             let childrenArr = delHiddenRouter(item.children);
                             if (childrenArr?.length > 0) {

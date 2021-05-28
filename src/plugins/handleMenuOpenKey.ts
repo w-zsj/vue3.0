@@ -2,6 +2,7 @@ import { reactive, toRefs, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import router from "../router";
+import { MenuRouter, Breadcrumb } from '@/interface'
 export default () => {
     let openKeys: any = reactive({
         defaultOpeneds: [],
@@ -17,10 +18,10 @@ export default () => {
     const store = useStore();
     openKeys.defaultActive = router.currentRoute.value.path;
     // 页面刷新 展开默认菜单
-    const _router: any = store.getters['base/staticRoutes']
+    const _router: MenuRouter<string>[] = store.getters['base/staticRoutes']
     getOpeneds(_router);
 
-    function getOpeneds(router: any[], parent: any = [], Breadcrumb: any = []) {
+    function getOpeneds(router: MenuRouter<string>[], parent: any = [], Breadcrumb: Array<Breadcrumb> = []) {
         router.forEach((item) => {
             if (item.path == openKeys.defaultActive) {
                 let crumb = [...Breadcrumb, { title: item.meta.title, path: item.path }]

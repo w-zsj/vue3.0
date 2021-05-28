@@ -2,10 +2,9 @@
   "compilerOptions": {
     "target": "esnext",//指定ECMAScript的目标版本:'ES3'(默认)，'ES5'， 'ES2015'， 'ES2016'， 'ES2017'， 'ES2018'， 'ES2019'， 'ES2020'，或'ESNEXT'。
     "module": "esnext",//指定模块代码生成:'none'， 'commonjs'， 'amd'， 'system'， 'umd'， 'es2015'， 'es2020'，或'ESNext'。
-    "moduleResolution": "node",
+    "moduleResolution": "node", //如何处理模块
     "baseUrl":"./",//用于解析非绝对模块名称的基本目录。
     "strict": true,
-    "jsx": "preserve",
     "sourceMap": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -19,7 +18,6 @@
     "strictNullChecks": true, // 是否严格的检查空值，默认false 检查有可能为null的地方
     "skipLibCheck": true,//跳过声明文件的类型检查。
     "isolatedModules": true, //将每个文件作为单独的模块
-    "noEmit": false, 
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/api"],
   "exclude": [
