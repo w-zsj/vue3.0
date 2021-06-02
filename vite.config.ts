@@ -7,7 +7,7 @@ import { svgBuilder } from './src/plugins/svgBuilder';
 // 是否为开发环境 "mockjs"
 const isProd = process.env.NODE_ENV === 'production'
 console.log(`process`, process.env.NODE_ENV)
-let Plus = ["axios", "element-plus", "vue-router"]
+let Plus = ["axios", "vue-router", 'vue']
 export default defineConfig({
   mode: isProd ? 'production' : 'development',
   server: {
@@ -33,30 +33,25 @@ export default defineConfig({
     }),
     svgBuilder('./src/icons/svg/')
   ],
-  base: './', // 打包路径
+  base: './', // 公共基础路径 静态资源处理
   build: {
     outDir: 'dist',
     assetsDir: `assets/`,
     cssCodeSplit: true,
     assetsInlineLimit: 1024 * 5,
     rollupOptions: {
+      external: Plus,
       output: {
         assetFileNames: 'css/[name]_[hash].css',
         chunkFileNames: 'js/[name]_[hash].js',
         entryFileNames: 'js/[name]_[hash].js',
         manualChunks: {
-          Plus: Plus
+          Plus: [...Plus, "element-plus"]
         },
         minifyInternalExports: false,
       },
-      watch: {
-        exclude: 'node_modules/**',
-        include: 'src/**'
-      },
     },
-    sourcemap: false,
-    manifest: false,
-
+    sourcemap: !!isProd,
     chunkSizeWarningLimit: 500, //chunk 大小警告的限制（以 kbs 为单位）。默认500
   },
   // 引入第三方的配置
