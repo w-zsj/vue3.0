@@ -8,6 +8,8 @@ import svgIcon from './components/svgIcon.vue'
 import hasPermission from './directive/hasPermission'
 // import 'element-plus/lib/theme-chalk/index.css';
 // import '../mock'
+import 'fullpage.js/vendors/scrolloverflow';
+import VueFullPage from 'vue-fullpage.js';
 
 console.log(`process.env>>>`, import.meta.env.DEV)
 
@@ -21,6 +23,7 @@ setupElComponent(app)
 app
     .use(router)
     .use(store)
+    .use(VueFullPage);
 app.component('svg-icon', svgIcon)
 
 app.directive('hasPermission', hasPermission)

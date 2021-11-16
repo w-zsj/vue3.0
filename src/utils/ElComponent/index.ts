@@ -19,7 +19,8 @@ import {
     ElTable,
     ElTableColumn,
     ElScrollbar,
-    ElIcon
+    ElIcon,
+    ElCarousel
 } from 'element-plus';
 
 const components = [
@@ -37,7 +38,8 @@ const components = [
     ElTable,
     ElTableColumn,
     ElScrollbar,
-    ElIcon
+    ElIcon,
+    ElCarousel
 ]
 
 
