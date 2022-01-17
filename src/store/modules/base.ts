@@ -26,7 +26,7 @@ const getters = {
 const actions = {
     async getMenuList({ commit }: any) {
         // getMenus  testMock
-        let data: any = await getMenus()
+        let data: any = await testMock()
         // console.log(`data-->>>`, data)
         if (data?.length) {
             // 存储所有按钮权限码

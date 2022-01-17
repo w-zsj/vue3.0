@@ -7,7 +7,7 @@ import store from './store/index'
 import svgIcon from './components/svgIcon.vue'
 import hasPermission from './directive/hasPermission'
 // import 'element-plus/lib/theme-chalk/index.css';
-// import '../mock'
+import '../mock'
 import 'fullpage.js/vendors/scrolloverflow';
 import VueFullPage from 'vue-fullpage.js';
 
