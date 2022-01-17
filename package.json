@@ -2,8 +2,7 @@
   "name": "vite",
   "version": "0.0.0",
   "scripts": {
-    "start": "vite",
-    "build": "tsc --noEmit && vite build",
+    "start": "vite --mode development",
     "build:dev": "vite build --mode development",
     "build:prd": "vite build --mode production",
     "serve": "vite preview"

@@ -6,7 +6,7 @@ import { svgBuilder } from './src/plugins/svgBuilder';
 // https://vitejs.dev/config/
 // 是否为开发环境 "mockjs"
 const isProd = process.env.NODE_ENV === 'production'
-console.log(`process`, process.env.NODE_ENV)
+console.log(`process`,isProd)
 let Plus = ["axios", "vue-router", 'vue']
 export default defineConfig({
   mode: isProd ? 'production' : 'development',

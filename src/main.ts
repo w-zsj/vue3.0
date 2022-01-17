@@ -11,8 +11,6 @@ import '../mock'
 import 'fullpage.js/vendors/scrolloverflow';
 import VueFullPage from 'vue-fullpage.js';
 
-console.log(`process.env>>>`, import.meta.env.DEV)
-
 // const vConsole = new VConsole();
 // if (!import.meta.env.DEV) {
 //     vConsole.destroy();

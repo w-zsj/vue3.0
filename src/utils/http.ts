@@ -1,11 +1,11 @@
 import axios from 'axios'
-const isdev = import.meta.env.MODE === 'production'
-console.log(`process.env`, import.meta.env)
+const isdev = import.meta.env.DEV
+console.log(`process:::`,import.meta.env)
 import { ElLoading } from 'element-plus';
 let loadingInstance: any
 // 请求实例
 const http = axios.create({
-    baseURL: import.meta.env.BASE_URL,
+    baseURL: import.meta.env.VITE_API_URL,
     timeout: 8000
 })
 // 请求拦截器
