@@ -2,7 +2,7 @@
   "name": "vite",
   "version": "0.0.0",
   "scripts": {
-    "start": "vite --mode development",
+    "start": "vite",
     "build:dev": "vite build --mode development",
     "build:prd": "vite build --mode production",
     "serve": "vite preview"
