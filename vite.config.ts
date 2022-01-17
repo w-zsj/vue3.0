@@ -3,10 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
 import path from 'path';
 import { svgBuilder } from './src/plugins/svgBuilder';
+const zsj='zzzz'
 // https://vitejs.dev/config/
 // 是否为开发环境 "mockjs"
 const isProd = process.env.NODE_ENV === 'production'
-console.log(`process`,isProd)
+
 let Plus = ["axios", "vue-router", 'vue']
 export default defineConfig({
   mode: isProd ? 'production' : 'development',
@@ -66,6 +67,10 @@ export default defineConfig({
       "comps": path.resolve(__dirname, "src/components"),
     },
   },
+  //全局变量替换 Record<string, string>
+  define: {
+    "VITE_USER":"'zsj'", // 注意用法
+  },
   // 引用全局 scss
   css: {
     preprocessorOptions: {
@@ -75,6 +80,7 @@ export default defineConfig({
       }
     }
   },
+
 })
 
 

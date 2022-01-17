@@ -1,6 +1,7 @@
 import axios from 'axios'
 const {DEV,VITE_API_URL} = (import.meta as any).env
 console.log(`process:::`,(import.meta as any).env)
+console.log(`自定义全局变量 VITE_USER`, VITE_USER)
 import { ElLoading } from 'element-plus';
 let loadingInstance: any
 // 请求实例
