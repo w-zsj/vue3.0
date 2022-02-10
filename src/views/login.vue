@@ -28,7 +28,8 @@ import Footer from "comps/footer.vue";
 export default defineComponent({
   name: "Index",
   components: { Footer, Swiper, SwiperSlide },
-  setup(props) {
+  setup(props:any) {
+    let store = useStore()
     const swiperOption2 = reactive({
       direction: "vertical",
       loop: true,

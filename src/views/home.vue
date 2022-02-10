@@ -17,7 +17,7 @@ import { useRouter, useRoute } from "vue-router";
 // import { testMock } from "@/api/base";
 export default defineComponent({
   name: "Index",
-  setup(props) {
+  setup(props:any) {
     const router = useRouter();
     const _ = getCurrentInstance() as any;
     let d: any = reactive({
