@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, h } from 'vue'
 import App from './App.vue'
 // import VConsole from 'vconsole';
 import setupElComponent from './utils/ElComponent'
@@ -15,8 +15,15 @@ import VueFullPage from 'vue-fullpage.js';
 // if (!import.meta.env.DEV) {
 //     vConsole.destroy();
 // }
-
-const app = createApp(App, { title: "app" })
+// const app = createApp(APP)
+const app = createApp({
+    data() {
+        return { zssssssss: 1123333333 }; // 实例对象上 _instance
+    },
+    render() {
+        return h(App);
+    }
+})
 setupElComponent(app)
 app
     .use(router)
