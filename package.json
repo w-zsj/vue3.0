@@ -2,17 +2,17 @@
   "name": "vite",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build-dev": "NODE_ENV=development && npm run build",
-    "build-prd": "NODE_ENV=production && npm run build",
-    "serve": "vite preview"
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server",
+    "serve": "NODE_ENV=production node server.ts"
   },
   "dependencies": {
     "sass": "^1.32.8",
     "serve": "^11.3.2",
     "vant": "^3.1.1",
-    "vue": "^3.0.5",
+    "vue": "^3.2.33",
+    "vue-server-renderer": "^2.6.14",
     "vuex": "4.0"
   },
   "devDependencies": {
@@ -28,6 +28,10 @@
     "vite": "^2.1.5",
     "vite-plugin-style-import": "^1.0.1",
     "vue-router": "^4.0.6",
-    "vue-tsc": "^0.0.15"
+    "vue-tsc": "^0.0.15",
+    "compression": "^1.7.4",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1"
   }
 }
