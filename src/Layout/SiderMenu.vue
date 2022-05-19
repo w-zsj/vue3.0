@@ -14,7 +14,6 @@ export default defineComponent({
   name: "SiderMenu",
   components: { SubMenu },
   setup() {
-    let currentPath = ref("/");
     // 处理菜单数据
     const addRoutes = handleRouter();
     // 处理openkey
@@ -25,7 +24,6 @@ export default defineComponent({
       defaultActive,
       defaultOpeneds,
       firstKey,
-      currentPath,
     };
   },
 });
