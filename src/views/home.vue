@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    首页22
     <el-button @click="goto">跳转</el-button>
     <el-table :data="tableData">
       <el-table-column prop="date" label="日期" width="140"> </el-table-column>
@@ -9,7 +10,6 @@
   </div>
 </template>
 <script lang="ts">
-import { log } from "console";
 import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter, useRoute } from "vue-router";
 // import { testMock } from "@/api/base";

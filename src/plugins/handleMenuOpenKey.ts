@@ -47,8 +47,9 @@ export default () => {
         crumb = crumb.filter((i) => i.title);
         store.dispatch({ type: "base/BreadCrumbData", crumb });
         console.log(
-          `defaultOpeneds--->>`,
+          `defaultActive--->>`,
           openKeys.defaultActive,
+          `defaultOpeneds--->>`,
           openKeys.defaultOpeneds
         );
       } else if (item?.children?.length && item?.path) {

@@ -48,7 +48,7 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                                     "name": "homeList",
                                     "component": "home",
                                     "meta": {
-                                        "title": ""
+                                        "title": "33"
                                     },
                                     "hidden": true
                                 },

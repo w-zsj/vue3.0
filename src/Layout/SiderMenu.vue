@@ -6,7 +6,7 @@
   </el-menu>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import SubMenu from "./SubMenu.vue";
 import handleRouter from "@/plugins/handleRouter";
 import handleMenuOpenKey from "@/plugins/handleMenuOpenKey";
@@ -14,6 +14,7 @@ export default defineComponent({
   name: "SiderMenu",
   components: { SubMenu },
   setup() {
+    let currentPath = ref("/");
     // 处理菜单数据
     const addRoutes = handleRouter();
     // 处理openkey
@@ -24,6 +25,7 @@ export default defineComponent({
       defaultActive,
       defaultOpeneds,
       firstKey,
+      currentPath,
     };
   },
 });

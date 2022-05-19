@@ -11,7 +11,7 @@
     <!-- :class="item.meta.icon?'one-menu':''" -->
     <el-menu-item :index="item.path" v-else>
       <template #title>
-        <svg-icon :name="(defaultActive==item.path&&item?.meta?.actIcon || item?.meta?.icon||'') "></svg-icon>
+        <svg-icon :name="((defaultActive==item.path)&&item?.meta?.actIcon || item?.meta?.icon||'') "></svg-icon>
         {{item.meta.title}}
       </template>
     </el-menu-item>
@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  props: ["addRoutes", "defaultActive", "firstKey"],
+  props: ["addRoutes", "defaultActive", "firstKey", "defaultOpeneds"],
   name: "SubMenu",
 });
 </script>
