@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="200px">
+    <el-aside>
       <el-scrollbar height="100vh">
         <SiderMenu />
       </el-scrollbar>
@@ -37,7 +37,8 @@ export default defineComponent({
 }
 
 .el-aside {
-  background-color: #545c64;
+  background-color: #1f2d3d;
+  max-width: 200px;
 }
 .el-main {
   background-color: #e9eef3;

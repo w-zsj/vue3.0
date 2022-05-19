@@ -19,7 +19,9 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                     "redirect": "/home/stree",
                     "component": "BlankLayout",
                     "meta": {
-                        "title": "二级"
+                        "title": "二级",
+                        "icon": "home",
+                        "actIcon": "acthome"
                     },
                     "childlist": [
                         {
@@ -27,7 +29,9 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                             "name": "stree",
                             "component": "login",
                             "meta": {
-                                "title": "三级"
+                                "title": "三级",
+                                "icon": "home",
+                                "actIcon": "acthome"
                             }
                         },
                         {

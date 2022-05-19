@@ -1,6 +1,8 @@
 <template>
-  <el-menu :defaultActive="defaultActive" :defaultOpeneds='defaultOpeneds' :uniqueOpened="true" router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-    <SubMenu :addRoutes='addRoutes' :defaultActive='defaultActive' :firstKey="firstKey" v-if="addRoutes?.length"></SubMenu>
+  <el-menu :defaultActive="defaultActive" :defaultOpeneds='defaultOpeneds' :uniqueOpened="true" router
+    background-color="#1f2d3d" text-color="rgb(191, 203, 217)" active-text-color="rgb(64, 158, 255)">
+    <SubMenu :addRoutes='addRoutes' :defaultActive='defaultActive' :firstKey="firstKey" v-if="addRoutes?.length">
+    </SubMenu>
   </el-menu>
 </template>
 <script lang="ts">
@@ -27,40 +29,28 @@ export default defineComponent({
 });
 </script>
 <style scoped lang='scss'>
+:deep(.svg-icon) {
+  margin-right: 6px;
+}
 .el-menu {
   border-right: 0;
 }
-.el-menu :deep(.el-submenu__title),
+.el-menu :deep(.el-sub-menu__title),
 .el-menu :deep(.el-menu-item) {
   height: 44px;
   line-height: 44px;
 }
-
-:deep(.el-submenu.is-opened.is-active .el-submenu__title) {
-  background: #38ce8a !important;
+:deep(.el-sub-menu__title) {
+  background: rgb(48, 65, 86) !important;
 }
 
-:deep(.el-menu--inline .el-submenu.is-opened .el-submenu__title),
-:deep(.el-submenu.is-opened.is-active .el-menu--inline .el-submenu__title) {
-  background: none !important;
+:deep(.el-sub-menu__title:hover) {
+  background: #1f2d3d !important;
 }
-:deep(.is-active.one-menu) {
-  background: #38ce8a !important;
-  color: #fff !important;
+:deep(.el-menu-item) {
+  background: rgb(48, 65, 86) !important;
 }
-:deep(.el-submenu.is-active .el-submenu__title i),
-:deep(.el-submenu__title:hover i) {
-  color: #fff !important;
+:deep(.one-menu .el-menu-item) {
+  background: #1f2d3d !important;
 }
-// :deep(.el-menu-item.one-menu:hover) {
-//   background: #38ce8a !important;
-// }
-// :deep(.el-submenu__title:hover) {
-//   background: #38ce8a !important;
-// }
-// :deep(.el-menu-item:hover),
-// :deep(.el-submenu__title:hover),
-// :deep(.el-menu-item.one-menu:hover) {
-//   background: none !important;
-// }
 </style>

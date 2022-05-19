@@ -2,19 +2,6 @@
   <swiper :options="swiperOption2" direction='vertical' @swiper="onSwiper" @slideChange="onSlideChange">
     <swiper-slide>Slide 1</swiper-slide>
     <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
-    <swiper-slide>Slide 4</swiper-slide>
-    <swiper-slide>Slide 5</swiper-slide>
-    <swiper-slide>Slide 1</swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
-    <swiper-slide>Slide 4</swiper-slide>
-    <swiper-slide>Slide 5</swiper-slide>
-    <swiper-slide>Slide 1</swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
-    <swiper-slide>Slide 4</swiper-slide>
-    <swiper-slide>Slide 5</swiper-slide>
   </swiper>
 
 </template>
@@ -28,8 +15,8 @@ import Footer from "comps/footer.vue";
 export default defineComponent({
   name: "Index",
   components: { Footer, Swiper, SwiperSlide },
-  setup(props:any) {
-    let store = useStore()
+  setup(props: any) {
+    let store = useStore();
     const swiperOption2 = reactive({
       direction: "vertical",
       loop: true,
@@ -51,15 +38,15 @@ export default defineComponent({
 });
 </script>
 <style lang='scss'>
-::-webkit-scrollbar,
-::-webkit-scrollbar-button,
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-track-piece,
-::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-corner,
-::-webkit-resizer {
-  background: red;
-}
+// ::-webkit-scrollbar,
+// ::-webkit-scrollbar-button,
+// ::-webkit-scrollbar-track,
+// ::-webkit-scrollbar-track-piece,
+// ::-webkit-scrollbar-thumb,
+// ::-webkit-scrollbar-corner,
+// ::-webkit-resizer {
+//   background: transparent;
+// }
 .home {
   .el-carousel__item h3 {
     color: #475669;

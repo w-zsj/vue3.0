@@ -10,18 +10,14 @@
 </template>
 <script lang="ts">
 import { log } from "console";
-import { defineComponent, getCurrentInstance, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter, useRoute } from "vue-router";
 // import { testMock } from "@/api/base";
 export default defineComponent({
   name: "Index",
   setup(props: any) {
     const router = useRouter();
-    const _ = getCurrentInstance() as any;
-    const { proxy } = getCurrentInstance();
-    console.log("proxy??? ", _,proxy);
-
-    let d: any = reactive({
+    let _: any = reactive({
       tableData: [],
     });
     const item = {
@@ -30,17 +26,13 @@ export default defineComponent({
       address: "上海市普陀区金沙江路 1518 弄",
     };
 
-    d.tableData = Array(20).fill(item);
+    _.tableData = Array(20).fill(item);
     const goto = () => {
-      // testMock(123).then((res) => {
-      // console.log(`mock--->>`, res);
-      // router.push({ path: "/demo" });
-      window.location.href = "http://localhost:15010/home/four/list?c=14";
-      // });
+      router.push({ path: "/demo" });
     };
     return {
       goto,
-      ...toRefs(d),
+      ...toRefs(_),
     };
   },
 });
