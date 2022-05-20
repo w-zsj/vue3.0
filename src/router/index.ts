@@ -16,7 +16,7 @@ let rs = () => store.getters['base/addRoutes'] || []
 function setRouter(to: any) {
     if (!(rs()?.length && rs().every((i: MenuRouter<string>) => router.hasRoute(i.name)))) {
         store.dispatch({ type: "base/getMenuList" }).then(() => {
-            console.log(`@~~~ 只添加一次路由`)
+            // console.log(`@~~~ 只添加一次路由`)
             rs().forEach((item: any) => router.addRoute(item));
             router.replace(to.fullPath)
         })

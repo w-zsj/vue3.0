@@ -12,7 +12,6 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
 import { useRouter, useRoute } from "vue-router";
-// import { testMock } from "@/api/base";
 export default defineComponent({
   name: "Index",
   setup(props: any) {

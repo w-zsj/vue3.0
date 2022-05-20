@@ -46,12 +46,12 @@ export default () => {
         // 处理面包屑
         crumb = crumb.filter((i) => i.title);
         store.dispatch({ type: "base/BreadCrumbData", crumb });
-        console.log(
-          `defaultActive--->>`,
-          openKeys.defaultActive,
-          `defaultOpeneds--->>`,
-          openKeys.defaultOpeneds
-        );
+        // console.log(
+        //   `defaultActive--->>`,
+        //   openKeys.defaultActive,
+        //   `defaultOpeneds--->>`,
+        //   openKeys.defaultOpeneds
+        // );
       } else if (item?.children?.length && item?.path) {
         getOpeneds(
           item.children,

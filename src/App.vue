@@ -8,9 +8,8 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   name: "App",
-  props:['title'],
-  setup(props) {
-    console.log("props", props);
+  setup() {
+    // console.log("props", props);
   },
 });
 </script>
