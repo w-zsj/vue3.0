@@ -2,16 +2,16 @@
   <template v-for="(item,idx) in addRoutes" :key="idx+Math.random()">
     <el-sub-menu class="one-menu" v-if="item?.children?.length>0" :index="item.path">
       <template #title style="padding-left:10px">
-        <svg-icon :name="(firstKey==item.path&&item?.meta?.actIcon || item?.meta?.icon||'') "></svg-icon>
+        <!-- <svg-icon :name="(firstKey==item.path&&item?.meta?.actIcon || item?.meta?.icon||'') "></svg-icon> -->
+        <icon class="iconfont icon-index"></icon>
         <span style="paddingLeft:4px;">{{ item.meta.title}}</span>
       </template>
       <!--  如果有子级数据使用递归组件 -->
       <SubMenu :addRoutes="item.children"></SubMenu>
     </el-sub-menu>
-    <!-- :class="item.meta.icon?'one-menu':''" -->
     <el-menu-item :index="item.path" v-else>
       <template #title>
-        <svg-icon :name="((defaultActive==item.path)&&item?.meta?.actIcon || item?.meta?.icon||'') "></svg-icon>
+        <icon class="iconfont icon-index"></icon>
         {{item.meta.title}}
       </template>
     </el-menu-item>

@@ -78,7 +78,9 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-        @use "./src/assets/css/app.scss";`,
+        @use "./src/assets/css/app.scss";
+        @use "./src/assets/iconfont/iconfont.css";
+        `,
       },
     },
   },

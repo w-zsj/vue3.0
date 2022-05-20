@@ -29,8 +29,8 @@ export default defineComponent({
 });
 </script>
 <style scoped lang='scss'>
-:deep(.svg-icon) {
-  margin-right: 6px;
+:deep(.iconfont) {
+  margin-right: 10px;
 }
 .el-menu {
   border-right: 0;
