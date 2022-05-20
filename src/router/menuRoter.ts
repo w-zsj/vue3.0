@@ -17,8 +17,6 @@ let rouetr: Array<any> = [
         component: "BlankLayout",
         meta: {
           title: "二级",
-          icon: "home",
-          actIcon: "acthome",
         },
         childlist: [
           {
@@ -27,8 +25,6 @@ let rouetr: Array<any> = [
             component: "login",
             meta: {
               title: "三级",
-              icon: "home",
-              actIcon: "acthome",
             },
           },
           {
@@ -38,8 +34,6 @@ let rouetr: Array<any> = [
             component: "BlankLayout",
             meta: {
               title: "库存列表",
-              icon: "home",
-              actIcon: "acthome",
             },
             childlist: [
               {
@@ -52,7 +46,7 @@ let rouetr: Array<any> = [
                 hidden: true,
               },
               {
-                path: "/demo",
+                path: "/home/four/list/detail",
                 name: "demo",
                 component: "demo",
                 meta: {
@@ -84,9 +78,7 @@ let rouetr: Array<any> = [
     name: "Order",
     component: "BasicLayout",
     meta: {
-      title: "订单",
-      icon: "order",
-      actIcon: "actorder",
+      title: "订单"
     },
     childlist: [
       {

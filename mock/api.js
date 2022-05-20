@@ -53,7 +53,7 @@ Mock.mock(/\/mock\/list([?.#&].*)?$/, (options) => {
                                     "hidden": true
                                 },
                                 {
-                                    "path": "/demo",
+                                    "path": "/home/four/list/detail",
                                     "name": "demo",
                                     "component": "demo",
                                     "meta": {

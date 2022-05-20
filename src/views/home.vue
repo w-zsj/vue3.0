@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    首页22
-    <el-button @click="goto">跳转</el-button>
+    <el-button @click="goto">查看详情</el-button>
     <el-table :data="tableData">
       <el-table-column prop="date" label="日期" width="140"> </el-table-column>
       <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
@@ -27,7 +26,7 @@ export default defineComponent({
 
     _.tableData = Array(20).fill(item);
     const goto = () => {
-      router.push({ path: "/demo" });
+      router.push({ path: "/home/four/list/detail" });
     };
     return {
       goto,
