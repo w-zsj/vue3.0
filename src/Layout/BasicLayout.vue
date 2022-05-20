@@ -10,7 +10,7 @@
         <Breadcrumb />
       </el-header>
       <el-main>
-        <el-scrollbar height="80vh">
+        <el-scrollbar>
           <router-view></router-view>
         </el-scrollbar>
       </el-main>
@@ -44,6 +44,7 @@ export default defineComponent({
   background-color: #e9eef3;
   color: #333;
   text-align: center;
+  height: calc(100vh - 60px);
 }
 
 body > .el-container {
